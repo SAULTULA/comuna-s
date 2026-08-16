@@ -15,7 +15,7 @@ app.use(cors());
 let newsCache = { data: [], fetchedAt: 0 };
 const CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutos
 
-app.get('/api/news', async (req, res) => {
+app.get(['/api/news', '/news'], async (req, res) => {
   const isFresh = Date.now() - newsCache.fetchedAt < CACHE_TTL_MS;
   if (isFresh && newsCache.data.length) {
     return res.json({ items: newsCache.data, cached: true });
@@ -47,7 +47,7 @@ app.get('/api/news', async (req, res) => {
   }
 });
 
-app.get('/api/radios', (req, res) => {
+app.get(['/api/radios', '/radios'], (req, res) => {
   res.json({
     items: radios.map(({ id, name, frequency, streamUrl, websiteUrl, color, placeholder }) => ({
       id,
@@ -61,7 +61,7 @@ app.get('/api/radios', (req, res) => {
   });
 });
 
-app.get('/api/health', (req, res) => res.json({ ok: true }));
+app.get(['/api/health', '/health'], (req, res) => res.json({ ok: true }));
 
 if (process.env.NODE_ENV !== 'production') {
   app.listen(PORT, () => {
