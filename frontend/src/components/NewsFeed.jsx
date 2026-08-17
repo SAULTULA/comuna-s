@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import NewsCard from './NewsCard.jsx';
 
 export default function NewsFeed() {
@@ -67,9 +67,28 @@ export default function NewsFeed() {
 
   return (
     <section className="news-grid">
-      {items.map((item, idx) => (
-        <NewsCard key={`${item.link}-${idx}`} item={item} />
-      ))}
+      {items.map((item, idx) => {
+        const isThirdSlot = idx === 2;
+
+        return (
+          <React.Fragment key={`${item.link}-${idx}`}>
+            {isThirdSlot && (
+              <div className="widget-card">
+                <iframe 
+                  src="https://gente-de-medios.vercel.app/widget?id=comuna-s" 
+                  width="100%" 
+                  height="100%" 
+                  frameBorder="0" 
+                  scrolling="no" 
+                  style={{ border: 'none', overflow: 'hidden', borderRadius: 'var(--radius-lg)' }}
+                  title="Contador de visitas"
+                ></iframe>
+              </div>
+            )}
+            <NewsCard item={item} />
+          </React.Fragment>
+        );
+      })}
     </section>
   );
 }

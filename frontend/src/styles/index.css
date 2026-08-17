@@ -235,6 +235,16 @@ a {
   border-radius: 6px;
 }
 
+/* ── Widget Card ─────────────────────────── */
+.widget-card {
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+  border-radius: var(--radius);
+  overflow: hidden;
+  min-height: 350px;
+}
+
 /* ── Responsive ──────────────────────────── */
 @media (max-width: 900px) {
   .app-content {
