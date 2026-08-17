@@ -1,7 +1,7 @@
 .weatherBar {
   display: flex;
   justify-content: flex-end;
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   color: var(--text-secondary);
 }
 
@@ -29,8 +29,8 @@
 }
 
 .weatherIcon {
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   object-fit: contain;
 }
 
