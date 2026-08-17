@@ -21,7 +21,7 @@ export default function RadioCards({ activeStationId, onActiveStationChange }) {
 
   const activeStation = stations.find((s) => s.id === playingId);
 
-  function handleToggle(station) {
+  async function handleToggle(station) {
     if (station.placeholder) return;
 
     if (playingId === station.id) {
@@ -33,15 +33,16 @@ export default function RadioCards({ activeStationId, onActiveStationChange }) {
 
     setPlayingId(station.id);
     onActiveStationChange(station.id);
+    
+    if (audioRef.current) {
+      audioRef.current.src = station.streamUrl;
+      try {
+        await audioRef.current.play();
+      } catch (err) {
+        console.warn('Error al reproducir audio:', err.message);
+      }
+    }
   }
-
-  useEffect(() => {
-    if (!audioRef.current || !activeStation) return;
-    audioRef.current.src = activeStation.streamUrl;
-    audioRef.current.play().catch((err) => {
-      console.warn('No se pudo reproducir automáticamente:', err.message);
-    });
-  }, [activeStation]);
 
   if (!stations.length) return null;
 
@@ -67,21 +68,13 @@ export default function RadioCards({ activeStationId, onActiveStationChange }) {
                     className={`${styles.cardIcon} ${station.logoUrl ? styles.cardIconLogo : ''}`} 
                     style={station.logoUrl ? {} : { backgroundColor: station.color }}
                   >
-                    {station.logoUrl ? (
+                    {station.logoUrl && (
                       <img
                         className={styles.stationLogo}
                         style={{ transform: station.id === 'la-autentica' ? 'scale(1.8)' : 'none' }}
                         src={station.logoUrl}
                         alt={`Logo ${station.name}`}
                       />
-                    ) : isActive ? (
-                      <div className={styles.iconBars}>
-                        <span className={styles.bar}></span>
-                        <span className={styles.bar}></span>
-                        <span className={styles.bar}></span>
-                      </div>
-                    ) : (
-                      <span className={styles.playIcon}>▶</span>
                     )}
                   </div>
                   {isPlaceholder && <span className={styles.badge}>Próximamente</span>}
@@ -89,7 +82,29 @@ export default function RadioCards({ activeStationId, onActiveStationChange }) {
                 
                 <div className={styles.cardBody}>
                   <h3 className={styles.cardTitle}>{station.name}</h3>
-                  <p className={styles.cardFreq}>{station.frequency} FM</p>
+                  <p className={styles.cardFreq}>
+                    {station.frequency === '—' ? 'Radio Online' : `${station.frequency} FM`}
+                  </p>
+                  
+                  {!isPlaceholder && (
+                    <button className={`${styles.playButton} ${isActive ? styles.playButtonActive : ''}`}>
+                      {isActive ? (
+                        <>
+                          <div className={styles.iconBars}>
+                            <span className={styles.bar}></span>
+                            <span className={styles.bar}></span>
+                            <span className={styles.bar}></span>
+                          </div>
+                          <span>Escuchando...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span className={styles.playIconBtn}>▶</span>
+                          <span>Escuchar en vivo</span>
+                        </>
+                      )}
+                    </button>
+                  )}
                 </div>
                 
                 {isPlaceholder && station.websiteUrl && (
