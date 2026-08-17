@@ -87,23 +87,43 @@ export default function RadioCards({ activeStationId, onActiveStationChange }) {
                   </p>
                   
                   {!isPlaceholder && (
-                    <button className={`${styles.playButton} ${isActive ? styles.playButtonActive : ''}`}>
-                      {isActive ? (
-                        <>
-                          <div className={styles.iconBars}>
-                            <span className={styles.bar}></span>
-                            <span className={styles.bar}></span>
-                            <span className={styles.bar}></span>
-                          </div>
-                          <span>Escuchando...</span>
-                        </>
-                      ) : (
-                        <>
-                          <span className={styles.playIconBtn}>▶</span>
-                          <span>Escuchar en vivo</span>
-                        </>
+                    <div className={styles.controlsWrapper}>
+                      <button className={`${styles.playButton} ${isActive ? styles.playButtonActive : ''}`}>
+                        {isActive ? (
+                          <>
+                            <div className={styles.iconBars}>
+                              <span className={styles.bar}></span>
+                              <span className={styles.bar}></span>
+                              <span className={styles.bar}></span>
+                            </div>
+                            <span>Escuchando...</span>
+                          </>
+                        ) : (
+                          <>
+                            <span className={styles.playIconBtn}>▶</span>
+                            <span>Escuchar en vivo</span>
+                          </>
+                        )}
+                      </button>
+                      
+                      {isActive && (
+                        <div 
+                          className={styles.volumeControlCard} 
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <span className={styles.volumeIcon}>🔊</span>
+                          <input
+                            className={styles.volumeSlider}
+                            type="range"
+                            min="0"
+                            max="1"
+                            step="0.01"
+                            value={volume}
+                            onChange={(e) => setVolume(Number(e.target.value))}
+                          />
+                        </div>
                       )}
-                    </button>
+                    </div>
                   )}
                 </div>
                 
@@ -122,34 +142,6 @@ export default function RadioCards({ activeStationId, onActiveStationChange }) {
             );
           })}
         </div>
-
-        {activeStation && (
-          <div className={styles.playerBar}>
-            <div className={styles.playerInfo}>
-              <span 
-                className={styles.pulse} 
-                style={{ backgroundColor: activeStation.color }}
-              ></span>
-              <span className={styles.playerText}>Al aire: <strong>{activeStation.name}</strong></span>
-            </div>
-            <div className={styles.playerControls}>
-              <span className={styles.volumeIcon}>🔊</span>
-              <input
-                className={styles.volumeSlider}
-                type="range"
-                min="0"
-                max="1"
-                step="0.01"
-                value={volume}
-                onChange={(e) => {
-                  e.stopPropagation();
-                  setVolume(Number(e.target.value));
-                }}
-                onClick={(e) => e.stopPropagation()}
-              />
-            </div>
-          </div>
-        )}
       </section>
     </>
   );

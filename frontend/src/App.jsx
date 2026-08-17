@@ -17,8 +17,17 @@ export default function App() {
             <p className="app-header__subtitle">Noticias y radios locales — Departamento Villaguay, Entre Ríos</p>
           </div>
         </div>
-        <div className="app-header__weather">
+        <div className="app-header__right">
           <WeatherBar />
+          <iframe 
+            src="https://gente-de-medios.vercel.app/widget?id=comuna-s" 
+            width="280" 
+            height="350" 
+            frameBorder="0" 
+            scrolling="no" 
+            style={{ border: 'none', overflow: 'hidden', borderRadius: '8px', marginTop: '1rem' }}
+            title="Contador de visitas"
+          ></iframe>
         </div>
       </header>
 

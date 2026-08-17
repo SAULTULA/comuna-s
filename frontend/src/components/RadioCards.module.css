@@ -193,58 +193,43 @@
   50% { transform: scaleY(1); }
 }
 
-/* Player Bar at the bottom of the section */
-.playerBar {
-  margin-top: var(--spacing-md);
-  background: var(--bg-mac-window);
-  border: 1px solid var(--border-mac);
-  border-radius: var(--radius-lg);
-  padding: var(--spacing-md) var(--spacing-lg);
+.controlsWrapper {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  width: 100%;
 }
 
-.playerInfo {
+.volumeControlCard {
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
-}
-
-.pulse {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
-  70% { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
-}
-
-.playerText {
-  color: var(--text-primary);
-  font-size: 0.95rem;
-}
-
-.playerControls {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-sm);
+  background: rgba(0, 0, 0, 0.2);
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  margin-top: 4px;
 }
 
 .volumeIcon {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: var(--text-secondary);
 }
 
 .volumeSlider {
-  width: 100px;
-  accent-color: var(--accent-color);
+  flex: 1;
+  height: 4px;
+  -webkit-appearance: none;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+
+.volumeSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent-color);
   cursor: pointer;
 }
