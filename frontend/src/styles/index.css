@@ -22,12 +22,9 @@ body {
   font-family: var(--font-family);
   color: var(--text-0);
   background: var(--bg-0);
-  background-attachment: fixed;
 }
 
-h1,
-h2,
-h3 {
+h1, h2, h3 {
   font-family: 'Space Grotesk', var(--font-family);
   margin: 0;
 }
@@ -37,47 +34,76 @@ a {
   text-decoration: none;
 }
 
+/* ── Shell ─────────────────────────────── */
 .app-shell {
-  max-width: 1100px;
+  max-width: 1280px;
   margin: 0 auto;
-  padding: 0 0 32px;
-  transition: padding-bottom 0.25s ease;
+  padding: 0 0 48px;
 }
 
+/* ── Header ─────────────────────────────── */
 .app-header {
-  margin-bottom: 32px;
-  padding: 40px 24px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.app-header__brand {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem;
+  gap: 1.25rem;
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--surface-1);
 }
 
 .app-header__logo {
-  height: 80px;
+  height: 72px;
+  width: auto;
   object-fit: contain;
+  flex-shrink: 0;
+}
+
+.app-header__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.app-header__title {
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  margin: 0;
 }
 
 .app-header__subtitle {
   margin: 0;
-  color: var(--text-1);
-  font-size: 1.1rem;
-  font-weight: 500;
+  color: var(--text-secondary);
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
 }
 
-/* ---------- News grid ---------- */
+/* ── Two-column layout ──────────────────── */
+.app-content {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  grid-template-areas: "news sidebar";
+  gap: 2rem;
+  padding: 2rem 2rem 0;
+  align-items: start;
+}
 
+.app-content__news {
+  grid-area: news;
+  min-width: 0;
+}
+
+.app-content__sidebar {
+  grid-area: sidebar;
+  position: sticky;
+  top: 1rem;
+}
+
+/* ── News grid ───────────────────────────── */
 .news-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
 }
 
 .news-card {
@@ -121,14 +147,14 @@ a {
 }
 
 .news-card__body {
-  padding: 16px 18px 18px;
+  padding: 14px 16px 16px;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
 }
 
 .news-card__source {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--accent);
@@ -136,14 +162,14 @@ a {
 }
 
 .news-card__title {
-  font-size: 1.02rem;
+  font-size: 0.95rem;
   line-height: 1.35;
   font-weight: 600;
 }
 
 .news-card__excerpt {
   margin: 0;
-  font-size: 0.88rem;
+  font-size: 0.83rem;
   color: var(--text-1);
   line-height: 1.5;
   display: -webkit-box;
@@ -154,7 +180,7 @@ a {
 
 .news-card__time {
   margin-top: 4px;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: var(--text-2);
 }
 
@@ -171,12 +197,8 @@ a {
 }
 
 @keyframes shimmer {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 .empty-state {
@@ -194,4 +216,27 @@ a {
   background: var(--panel);
   padding: 2px 6px;
   border-radius: 6px;
+}
+
+/* ── Responsive ──────────────────────────── */
+@media (max-width: 900px) {
+  .app-content {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "sidebar"
+      "news";
+    padding: 1rem;
+  }
+
+  .app-content__sidebar {
+    position: static;
+  }
+
+  .app-header {
+    padding: 1rem;
+  }
+
+  .app-header__logo {
+    height: 56px;
+  }
 }

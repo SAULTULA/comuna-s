@@ -7,7 +7,6 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={styles.footerContent}>
         <div className={styles.logosContainer}>
-          <img src="/logo-comunas.png" alt="Comuna-S Logo" className={styles.comunasLogo} />
           <div className={styles.creatorInfo}>
             <span className={styles.developedBy}>Desarrollado por</span>
             <img src="/logo.png" alt="KSM Servicios Logo" className={styles.ksmLogo} />

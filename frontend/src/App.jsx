@@ -11,15 +11,20 @@ export default function App() {
     <div className="app-shell">
       <WeatherBar />
       <header className="app-header">
-        <div className="app-header__brand">
-          <img src="/ccomunasnoti.png" alt="Comuna-S" className="app-header__logo" />
+        <img src="/ccomunasnoti.png" alt="Comuna-S" className="app-header__logo" />
+        <div className="app-header__text">
+          <h1 className="app-header__title">Comuna-S</h1>
+          <p className="app-header__subtitle">Noticias y radios locales — Departamento Villaguay, Entre Ríos</p>
         </div>
-        <p className="app-header__subtitle">Noticias y radios locales, en un solo lugar</p>
       </header>
 
-      <main>
-        <RadioCards activeStationId={activeStationId} onActiveStationChange={setActiveStationId} />
-        <NewsFeed />
+      <main className="app-content">
+        <section className="app-content__news">
+          <NewsFeed />
+        </section>
+        <aside className="app-content__sidebar">
+          <RadioCards activeStationId={activeStationId} onActiveStationChange={setActiveStationId} />
+        </aside>
       </main>
 
       <Footer />
