@@ -53,8 +53,11 @@
 
 .cardHeader {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: flex-start;
+  align-items: center;
+  gap: var(--spacing-sm);
+  width: 100%;
 }
 
 .cardIcon {
@@ -71,9 +74,10 @@
 .cardIconLogo {
   background: transparent;
   box-shadow: none;
-  width: 56px;
-  height: 56px;
-  border-radius: var(--radius-lg);
+  width: 100%;
+  height: 90px;
+  border-radius: 0;
+  margin-bottom: var(--spacing-xs);
 }
 
 .stationLogo {
@@ -81,7 +85,6 @@
   height: 100%;
   object-fit: contain;
   display: block;
-  border-radius: inherit;
 }
 
 .playIcon {

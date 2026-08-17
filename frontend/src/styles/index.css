@@ -45,10 +45,18 @@ a {
 .app-header {
   display: flex;
   align-items: center;
-  gap: 1.25rem;
+  justify-content: space-between;
   padding: 1.5rem 2rem;
   border-bottom: 1px solid var(--border-color);
   background: var(--surface-1);
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.app-header__brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
 }
 
 .app-header__logo {

@@ -9,12 +9,16 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <WeatherBar />
       <header className="app-header">
-        <img src="/ccomunasnoti.png" alt="Comuna-S" className="app-header__logo" />
-        <div className="app-header__text">
-          <h1 className="app-header__title">Comuna-S</h1>
-          <p className="app-header__subtitle">Noticias y radios locales — Departamento Villaguay, Entre Ríos</p>
+        <div className="app-header__brand-wrapper">
+          <img src="/ccomunasnoti.png" alt="Comuna-S" className="app-header__logo" />
+          <div className="app-header__text">
+            <h1 className="app-header__title">Comuna-S</h1>
+            <p className="app-header__subtitle">Noticias y radios locales — Departamento Villaguay, Entre Ríos</p>
+          </div>
+        </div>
+        <div className="app-header__weather">
+          <WeatherBar />
         </div>
       </header>
 
