@@ -48,7 +48,7 @@ a {
   justify-content: space-between;
   padding: 1.5rem 2rem;
   border-bottom: 1px solid var(--border-color);
-  background: var(--surface-1);
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.5) 100%), url('/saj.png') center/cover no-repeat;
   flex-wrap: wrap;
   gap: 1.5rem;
 }

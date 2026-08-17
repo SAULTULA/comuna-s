@@ -4,6 +4,25 @@
 
 module.exports = [
   {
+    id: 'radio-comunas',
+    name: 'Radio Comuna S',
+    frequency: '—',
+    streamUrl: 'https://stream.zeno.fm/a2h50mks398uv',
+    websiteUrl: '',
+    color: '#69db7c',
+    logoUrl: '/logo-comunas.png',
+    placeholder: false,
+  },
+  {
+    id: 'la-autentica',
+    name: 'La Auténtica Radio',
+    frequency: '100.5',
+    streamUrl: 'https://edge03.radiohdvivo.com/autentica1005',
+    websiteUrl: 'https://www.laautenticaradio.com/',
+    color: '#ffd43b',
+    logoUrl: '/autentica.png',
+  },
+  {
     id: 'la-meso',
     name: 'La Meso FM',
     frequency: '97.1',
@@ -20,24 +39,5 @@ module.exports = [
     websiteUrl: 'https://villaguay.gob.ar/radiomunicipal/',
     color: '#4dabf7',
     logoUrl: '/muni.jpg',
-  },
-  {
-    id: 'la-autentica',
-    name: 'La Auténtica Radio',
-    frequency: '100.5',
-    streamUrl: 'https://edge03.radiohdvivo.com/autentica1005',
-    websiteUrl: 'https://www.laautenticaradio.com/',
-    color: '#ffd43b',
-    logoUrl: '/autentica.png',
-  },
-  {
-    id: 'radio-comunas',
-    name: 'Radio Comuna S',
-    frequency: '—',
-    streamUrl: 'https://stream.zeno.fm/a2h50mks398uv',
-    websiteUrl: '',
-    color: '#69db7c',
-    logoUrl: '/logo-comunas.png',
-    placeholder: false,
   },
 ];

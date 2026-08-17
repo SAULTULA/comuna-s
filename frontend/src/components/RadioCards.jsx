@@ -70,6 +70,7 @@ export default function RadioCards({ activeStationId, onActiveStationChange }) {
                     {station.logoUrl ? (
                       <img
                         className={styles.stationLogo}
+                        style={{ transform: station.id === 'la-autentica' ? 'scale(1.8)' : 'none' }}
                         src={station.logoUrl}
                         alt={`Logo ${station.name}`}
                       />
