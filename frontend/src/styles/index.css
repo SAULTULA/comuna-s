@@ -1,6 +1,7 @@
 @import './variables.css';
 
 :root {
+<<<<<<< HEAD
   --bg-0: var(--bg-mac-base);
   --bg-1: var(--surface-1);
   --panel: var(--bg-mac-card);
@@ -10,6 +11,17 @@
   --text-2: var(--text-tertiary);
   --accent: var(--accent-color);
   --radius: var(--radius-lg);
+=======
+  --bg-0: #0b0d12;
+  --bg-1: #12151d;
+  --panel: rgba(255, 255, 255, 0.05);
+  --panel-border: rgba(255, 255, 255, 0.09);
+  --text-0: #f2f3f7;
+  --text-1: #b6bac6;
+  --text-2: #7d8190;
+  --accent: #7c9cff;
+  --radius: 18px;
+>>>>>>> 34ead8973f622d9bba8f2dcc7bbc4031adf00dfa
 }
 
 * {
@@ -19,16 +31,27 @@
 body {
   margin: 0;
   min-height: 100vh;
+<<<<<<< HEAD
   font-family: var(--font-family);
   color: var(--text-0);
   background: var(--bg-0);
+=======
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--text-0);
+  background: radial-gradient(circle at 15% -10%, #1c2440 0%, transparent 45%),
+    radial-gradient(circle at 85% 0%, #2a1c40 0%, transparent 40%), var(--bg-0);
+>>>>>>> 34ead8973f622d9bba8f2dcc7bbc4031adf00dfa
   background-attachment: fixed;
 }
 
 h1,
 h2,
 h3 {
+<<<<<<< HEAD
   font-family: 'Space Grotesk', var(--font-family);
+=======
+  font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+>>>>>>> 34ead8973f622d9bba8f2dcc7bbc4031adf00dfa
   margin: 0;
 }
 
@@ -40,22 +63,30 @@ a {
 .app-shell {
   max-width: 1100px;
   margin: 0 auto;
+<<<<<<< HEAD
   padding: 0 0 32px;
+=======
+  padding: 40px 24px 32px;
+>>>>>>> 34ead8973f622d9bba8f2dcc7bbc4031adf00dfa
   transition: padding-bottom 0.25s ease;
 }
 
 .app-header {
   margin-bottom: 32px;
+<<<<<<< HEAD
   padding: 40px 24px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+=======
+>>>>>>> 34ead8973f622d9bba8f2dcc7bbc4031adf00dfa
 }
 
 .app-header__brand {
   display: flex;
   align-items: center;
+<<<<<<< HEAD
   justify-content: center;
   margin-bottom: 1rem;
 }
@@ -70,6 +101,29 @@ a {
   color: var(--text-1);
   font-size: 1.1rem;
   font-weight: 500;
+=======
+  gap: 10px;
+}
+
+.app-header__brand h1 {
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.app-header__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 14px 2px var(--accent);
+}
+
+.app-header__subtitle {
+  margin: 6px 0 0;
+  color: var(--text-1);
+  font-size: 0.95rem;
+>>>>>>> 34ead8973f622d9bba8f2dcc7bbc4031adf00dfa
 }
 
 /* ---------- News grid ---------- */
