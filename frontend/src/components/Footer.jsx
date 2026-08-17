@@ -9,7 +9,9 @@ export default function Footer() {
         <div className={styles.logosContainer}>
           <div className={styles.creatorInfo}>
             <span className={styles.developedBy}>Desarrollado por</span>
-            <img src="/logo.png" alt="KSM Servicios Logo" className={styles.ksmLogo} />
+            <a href="https://ksmservicios.com.ar" target="_blank" rel="noopener noreferrer" className={styles.ksmLink}>
+              ksmservicios.com.ar
+            </a>
           </div>
         </div>
         <div className={styles.copyright}>
