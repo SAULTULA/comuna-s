@@ -3,10 +3,10 @@ import styles from './WeatherBar.module.css';
 
 const API_KEY = '87a66167c1f9a7046982610d0cd59b7a';
 const CITIES = [
-  { name: 'Villaguay', query: 'Villaguay,AR' },
-  { name: 'Villa Clara', query: 'Villa Clara,AR' },
-  { name: 'Villa Domínguez', query: 'Villa Dominguez,AR' },
-  { name: 'Sajaroff', query: 'Ingeniero Sajaroff,AR' }
+  { name: 'Villaguay', lat: -31.8652, lon: -59.0270 },
+  { name: 'Villa Clara', lat: -31.8315, lon: -58.8247 },
+  { name: 'Villa Domínguez', lat: -31.9897, lon: -58.9664 },
+  { name: 'Sajaroff', lat: -31.6212, lon: -58.9950 }
 ];
 
 export default function WeatherBar() {
@@ -17,7 +17,7 @@ export default function WeatherBar() {
     const fetchWeather = async () => {
       try {
         const promises = CITIES.map(async (city) => {
-          const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city.query}&appid=${API_KEY}&units=metric&lang=es`);
+          const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${city.lat}&lon=${city.lon}&appid=${API_KEY}&units=metric&lang=es`);
           if (!res.ok) return null;
           const data = await res.json();
           return {
