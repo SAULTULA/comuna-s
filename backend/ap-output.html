@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+    <head>
+
+        <!-- TAGS, titulo, etc -->
+        <meta http-equiv="Content-Language" content="es">
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <META name="title" CONTENT="AP Noticias">
+        <META name="keywords" CONTENT="villaguay, entre rios, noticias de villaguay, fotos de villaguay, deportes villaguay">
+        <META name="description" CONTENT="Noticias de la ciudad de Villaguay, Provincia de Entre Rios, Argentina">
+        <META name="robots" CONTENT="all">
+        <META name="verify-v1" content="L9psd5l0J3qjhclxzzLVxabxVC0B4DWrP4Malh0Yoag=">
+                    <title>AP Noticias</title>
+            <meta property="og:title" content="AP Noticias" />
+            <meta property="og:image" content="https://www.apnoticias.com.ar/favicon.jpg" />
+                <meta property="og:description" content="APNoticias. Noticias de la ciudad de Villaguay, Provincia de Entre Rios, Argentina" />
+        <meta property="og:url" content="www.apnoticias.com.ar/" />
+
+        <!-- Codigo del Icono -->
+        <link href="favicon.ico" rel="shortcut icon"/>
+
+        <!-- Hojas de Estilo -->
+        <link rel="stylesheet" href="css/principal.css" type="text/css"/>
+        <link rel="stylesheet" href="css/secciones.css" type="text/css"/>
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+        <script src="js/bootstrap/bootstrap.bundle.min.js"></script>
+
+        <!-- Jquery -->
+        <script src="js/jquery-3.6.0.js"></script>
+
+        <!-- LightBox -->
+        <script type="module" src="funciones/lightbox.js"></script>
+
+        <!-- Lazy Load videos -->
+        <script type="text/javascript">
+            document.addEventListener("DOMContentLoaded", function() {
+                var lazyVideos = [].slice.call(document.querySelectorAll("video.lazy-video"));
+
+                if ("IntersectionObserver" in window) {
+                    var lazyVideoObserver = new IntersectionObserver(function(entries, observer) {
+                    entries.forEach(function(video) {
+                        if (video.isIntersecting) {
+                        for (var source in video.target.children) {
+                            var videoSource = video.target.children[source];
+                            if (typeof videoSource.tagName === "string" && videoSource.tagName === "SOURCE") {
+                            videoSource.src = videoSource.dataset.src;
+                            }
+                        }
+
+                        video.target.load();
+                        video.target.classList.remove("lazy-video");
+                        lazyVideoObserver.unobserve(video.target);
+                        }
+                    });
+                    });
+
+                    lazyVideos.forEach(function(lazyVideo) {
+                    lazyVideoObserver.observe(lazyVideo);
+                    });
+                }
+            });
+        </script>
+
+        <!-- Google Ad Sense -->
+        <meta name="google-adsense-account" content="ca-pub-9395006748084843">
+
+    </head>
+
+    <body>
+
+        <header>
+
+            <nav class="navbar navbar-expand-sm navbar-dark mb-3">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="index.php">
+                        <img alt="AP Noticias" src="imagenes/logo.png" width="51px" height="50px">
+                        <img alt="AP Noticias" src="imagenes/logo2022.png" width="73px" height="50px">
+                    </a>
+                    <button aria-label="Menu Principal" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="index.php">Inicio</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="secciones/noticias.php?seccion=locales">Locales</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="secciones/noticias.php?seccion=deportes">Deportes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="secciones/noticias.php?seccion=provinciales">Provinciales</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="secciones/opiniones.php">Opiniones</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="secciones/servicios.php">Servicios</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="secciones/videos.php">Videos</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="secciones/galerias.php">Galerias de Fotos</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+        </header>
+
+		
+
+
+<div class="row m-0 fila-previa">
+	<div class="col text-center pt-2">
+		<video class="lazy-video" autoplay muted loop playsinline width="133" height="102">
+			<source data-src="imagenes/publis/casa_luis_tres.webm" type="video/webm">
+		</video>
+	</div>
+	<div class="col text-center pt-2">
+		<video class="lazy-video" autoplay muted loop playsinline width="133" height="103">
+			<source data-src="imagenes/publis/farmacia_luis_tres.webm" type="video/webm">
+		</video>
+	</div>
+	<div class="col text-center pt-2">
+		<video class="lazy-video" autoplay muted loop playsinline width="134" height="103">
+			<source data-src="imagenes/publis/er_emergencias.webm" type="video/webm">
+		</video>
+	</div>
+	<div class="col text-center pt-3">
+		<div id="mrwid2c2dd0ab8bc561b88ff59c28dfb54897"><script type="text/javascript" async src="https://api.meteored.com/widget/loader/2c2dd0ab8bc561b88ff59c28dfb54897"></script></div>
+	</div>	
+</div>
+
+<div class="portada-cuadro-total">
+
+	<div class="fila">
+
+		
+			<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba locales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=locales&id=60641"> 
+						<img class="portada-imagen lazy" 
+							alt="Por Osvaldo Quiroga. As� comienza la inmigraci�n y colonizaci�n jud�a en la Argentina"
+							title="Por Osvaldo Quiroga. As� comienza la inmigraci�n y colonizaci�n jud�a en la Argentina" 
+							src="imagenes/noticias/2026/08/moisesvilleanuversario.webp">
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=locales&id=60641" class="locales-color"> 
+						Por Osvaldo Quiroga. As� comienza la inmigraci�n y colonizaci�n jud�a en la Argentina					</a>
+				</div>
+				<div class="portada-resumen">
+					El 14 de agosto de 1889 (hace 135 a�os) lleg� al puerto de Buenos Aires el vapor "Wesser". Entre sus pasajes, 836 personas oriundos de Rusia, de la ciudad de Kamenetz-Podolsk, considerado el primer grupo de familias jud�as que llegan organizadas y con el deseo de convertirse en agricultores en una tierra libre.				</div>
+				<div class="portada-lugar-fecha locales-color">
+					Villa Dom�nguez, 14-08-2026				</div>
+							</div>
+																							
+			<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba locales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=locales&id=60640"> 
+						<img class="portada-imagen lazy" 
+							alt="Nuestros j�venes deportistas un orgullo para Villaguay "
+							title="Nuestros j�venes deportistas un orgullo para Villaguay " 
+							src="imagenes/noticias/2026/08/depirtistasvillaguayorgullo2026.webp">
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=locales&id=60640" class="locales-color"> 
+						Nuestros j�venes deportistas un orgullo para Villaguay 					</a>
+				</div>
+				<div class="portada-resumen">
+					En la ma�ana de este jueves, el presidente municipal Adri�n Federico Fuertes, junto a la secretaria de Turismo, Deporte y Ambiente, Dra. Cecilia Revoredo, y el director de Deportes, Prof. Alan Espinosa, recibi� a j�venes deportistas beneficiarios de la Beca Deportiva Municipal, quienes vienen obteniendo importantes resultados y representando a Villaguay.				</div>
+				<div class="portada-lugar-fecha locales-color">
+					Villaguay, 14-08-2026				</div>
+							</div>
+							<div class="publicidad-cuadro">
+					<!-- Contador de Visitas -->
+											<div class="portada-contador">
+							<p>
+								Director: Ceferino Azambuyo
+								<br>
+								Hoy: 10930 visitas.
+								<br>
+								Total: 141922868							</p>
+						</div>
+										<br><br>
+					<!-- Publicidad Villaguay Gobierno -->
+					<a href="http://www.villaguay.gob.ar" target="_muni">
+						<img alt="Municipalidad" src="imagenes/publis/municipalidad_villaguay_2024.webp" class="publicidad-imagen">	
+					</a>
+					<br><br>
+					<!-- Seccion Farmacia -->
+											<div class="alert alert-primary text-center farmacia">
+							<h2>DE TURNO</h2>
+							<hr>
+							<strong>FARMACIA Luis Tres</strong>
+							<br>
+							25 de Mayo 454							<br>
+							03455-422959						</div>
+								
+				</div>
+																							
+			<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba locales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=locales&id=60638"> 
+						<img class="portada-imagen lazy" 
+							alt="Curso de tiro defensivo -Modalidad: semi presencial"
+							title="Curso de tiro defensivo -Modalidad: semi presencial" 
+							src="imagenes/noticias/2026/08/cursodetirodefensivo2026.webp">
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=locales&id=60638" class="locales-color"> 
+						Curso de tiro defensivo -Modalidad: semi presencial					</a>
+				</div>
+				<div class="portada-resumen">
+					Curso de tiro defensivo -Modalidad: semi presencial- para formarse, practicar y superarse. Dar� inicio el s�bado 15 de agosto a las 17 horas. Clases virtuales: s�bado 15 de agosto - 17 horas (en vivo por zoom). Clase presencial: domingo 16 de agosto en Tiro federal Villaguay.				</div>
+				<div class="portada-lugar-fecha locales-color">
+					Villaguay, 14-08-2026				</div>
+							</div>
+										<div class="publicidad-cuadro">
+					<!-- Publicidad Estudio Juridico Gamarra-Zaburlin -->
+					<video class="lazy-video" autoplay muted loop playsinline width="310" height="208">
+						<source data-src="imagenes/publis/estudio_gamarra_zaburlin_2022.webm" type="video/webm">
+					</video>
+					<br><br>
+					<!-- Publicidad Festidanza -->
+					<a href="https://www.facebook.com/EscueladefolkloreElSauce/" target="_blank">
+						<img alt="Festidanza" src="imagenes/publis/festidanza_argentina_2026.webp" class="publicidad-imagen" style="max-width: 400px;">	
+					</a>
+				</div>
+				<div class="publicidad-cuadro">
+					<!-- Publicidad Valeria Wicky -->
+					<video class="lazy-video" autoplay muted loop playsinline width="350" height="293" style="border: 1px solid #ffdfe8;">
+						<source data-src="imagenes/publis/valeria_wicky.mp4" type="video/mp4">
+					</video>
+					<br><br>
+					<!-- Publicidad Mundo Avicola -->
+					<a href="https://www.facebook.com/p/Mundo-Avicola-100054244161481/" target="_mundoavicola">
+						<img alt="Mundo Avicola" src="imagenes/publis/mundo_avicola.webp" class="publicidad-imagen" style="max-width: 350px;">	
+					</a>
+				</div>
+																				
+			<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba locales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=locales&id=60637"> 
+						<img class="portada-imagen lazy" 
+							alt="Comuna de Paso de la Laguna con nuevas propuestas de Formaci�n Profesional"
+							title="Comuna de Paso de la Laguna con nuevas propuestas de Formaci�n Profesional" 
+							src="imagenes/noticias/2026/08/propuestasformacionprofesiionalpasolaguna2026.webp">
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=locales&id=60637" class="locales-color"> 
+						Comuna de Paso de la Laguna con nuevas propuestas de Formaci�n Profesional					</a>
+				</div>
+				<div class="portada-resumen">
+					La Comuna de Paso de la Laguna, junto al Centro Comunitario N�24, invita a toda la comunidad a inscribirse en las nuevas capacitaciones que comenzar�n pr�ximamente.				</div>
+				<div class="portada-lugar-fecha locales-color">
+					Villaguay, 14-08-2026				</div>
+							</div>
+													<div class="portada-cuadro">
+					<!-- Publicidad Estudio Juridico Integral -->
+					<video class="lazy-video" autoplay muted loop playsinline width="310" height="208">
+						<source data-src="imagenes/publis/estudio_juridico_integral.webm" type="video/webm">
+					</video>
+					<br><br>
+					<!-- Publicidad Support -->
+					<video class="lazy-video" autoplay muted loop playsinline width="350" height="196">
+						<source data-src="imagenes/publis/support_enero_2026.webm" type="video/webm">
+					</video>
+				</div>
+																	
+			<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba locales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=locales&id=60636"> 
+						<img class="portada-imagen lazy" 
+							alt="La Feria del D�a del Ni�o cambia de fecha"
+							title="La Feria del D�a del Ni�o cambia de fecha" 
+							src="imagenes/noticias/2026/08/feriadeldianinioagosto2026.webp">
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=locales&id=60636" class="locales-color"> 
+						La Feria del D�a del Ni�o cambia de fecha					</a>
+				</div>
+				<div class="portada-resumen">
+					La Municipalidad de Villaguay informa que la feria prevista para este domingo 16 de agosto se reprograma para el domingo 23 de agosto, manteniendo el mismo horario y lugar.				</div>
+				<div class="portada-lugar-fecha locales-color">
+					Villaguay, 14-08-2026				</div>
+							</div>
+																							
+			<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba locales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=locales&id=60635"> 
+						<img class="portada-imagen lazy" 
+							alt="Separar los residuos en casa hace una gran diferencia"
+							title="Separar los residuos en casa hace una gran diferencia" 
+							src="imagenes/noticias/2026/08/recoleccionseleccoadabasura2026agosto.webp">
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=locales&id=60635" class="locales-color"> 
+						Separar los residuos en casa hace una gran diferencia					</a>
+				</div>
+				<div class="portada-resumen">
+					La separaci�n de residuos en origen no solo contribuye al cuidado del ambiente y a mantener una Villaguay m�s limpia, sino que tambi�n es fundamental para acompa�ar el enorme trabajo que realizan diariamente los trabajadores de nuestra Planta de Tratamiento de Residuos S�lidos Urbanos.				</div>
+				<div class="portada-lugar-fecha locales-color">
+					Villaguay, 14-08-2026				</div>
+							</div>
+																							
+			<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba locales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=locales&id=60633"> 
+						<img class="portada-imagen lazy" 
+							alt="Alumnos de la Escuela Agrot�cnica Urquiza visitaron Villa Dom�nguez"
+							title="Alumnos de la Escuela Agrot�cnica Urquiza visitaron Villa Dom�nguez" 
+							src="imagenes/noticias/2026/08/alumnosescuelaurquizacircuitocoloniasjudias2026.webp">
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=locales&id=60633" class="locales-color"> 
+						Alumnos de la Escuela Agrot�cnica Urquiza visitaron Villa Dom�nguez					</a>
+				</div>
+				<div class="portada-resumen">
+					Alumnos de 2do. a�o den la Escuela Agrot�cnica J.J. de Urquiza de Villaguay realizaron un viaje educativo a la localidad de Villa Dom�nguez, en el marco del proyecto: "Tierra de promesas".				</div>
+				<div class="portada-lugar-fecha locales-color">
+					Villaguay, 14-08-2026				</div>
+							</div>
+																							
+			<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba locales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=locales&id=60632"> 
+						<img class="portada-imagen lazy" 
+							alt="Adri�n Fuertes y el Secretario de Producci�n Horacio Manzato visitaron la localidad bonaerense de San Vicente"
+							title="Adri�n Fuertes y el Secretario de Producci�n Horacio Manzato visitaron la localidad bonaerense de San Vicente" 
+							src="imagenes/noticias/2026/08/fuertesmanzatosanvicente2026.webp">
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=locales&id=60632" class="locales-color"> 
+						Adri�n Fuertes y el Secretario de Producci�n Horacio Manzato visitaron la localidad bonaerense de San Vicente					</a>
+				</div>
+				<div class="portada-resumen">
+					El Intendente de Villaguay, Adri�n Federico Fuertes, acompa�ado por el Secretario de Producci�n de Villaguay, Horacio "Tato" Manzato, y de Villa Elisa, Alberto "Cuio" Ingold y Santiago "Santi" Garc�a, visit� la hermosa localidad bonaerense de San Vicente.				</div>
+				<div class="portada-lugar-fecha locales-color">
+					Villaguay, 14-08-2026				</div>
+							</div>
+																<div class="publicidad-cuadro">
+					<!-- Publicidad Rossetti -->
+					<iframe title="publicidad" src="imagenes/publis/rossetti/index.html" frameborder="0" width="310px" height="310px" scrolling="no">
+					</iframe>
+					<br><br>
+					<!-- Publicidad Yaguane -->
+					<video class="lazy-video" autoplay muted loop playsinline width="310" height="208">
+						<source data-src="imagenes/publis/yaguane_2018.webm" type="video/webm">
+					</video>
+				</div>
+														
+			<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba locales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=locales&id=60631"> 
+						<img class="portada-imagen lazy" 
+							alt="Por �guila de Ra�ces. Tragedia en las rutas de entre r�os: cuando el foco est� en recaudar y no en salvar vidas"
+							title="Por �guila de Ra�ces. Tragedia en las rutas de entre r�os: cuando el foco est� en recaudar y no en salvar vidas" 
+							src="imagenes/noticias/2026/08/accidentesfatalesrutassinmantenimiento2026.webp">
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=locales&id=60631" class="locales-color"> 
+						Por �guila de Ra�ces. Tragedia en las rutas de entre r�os: cuando el foco est� en recaudar y no en salvar vidas					</a>
+				</div>
+				<div class="portada-resumen">
+					Las cifras oficiales del Observatorio de Seguridad Vial de Entre R�os corresponden al primer semestre de 2026 y resultan alarmantes: 72 personas perdieron la vida en 55 siniestros fatales registrados entre enero y junio. Si la tendencia actual no se revierte, el a�o cerrar� con m�s de 140 v�ctimas fatales, superando los registros de 2025.				</div>
+				<div class="portada-lugar-fecha locales-color">
+					Villaguay, 14-08-2026				</div>
+							</div>
+																			<div class="publicidad-cuadro">
+					<!-- Publicidad Radio Autentica -->
+					<video class="lazy-video" autoplay muted loop playsinline width="330" height="270">
+						<source data-src="imagenes/publis/radio_autentica_2026.webm" type="video/webm">
+					</video>
+					<br><br>
+					<!-- Proponemos Escuchar -->
+					<div class="text-center mb-2">
+						<p class="proponemos-escuchar">
+							<b>Hoy te proponemos escuchar...</b>
+						</p>
+						<iframe title="Video recomendado"
+								class="video-recomendado"
+								loading="lazy"
+								src="https://www.youtube.com/embed/uMLuLLCXXx4?list=RD5nCV1bU4RbM" 
+								frameborder="0" allowfullscreen>
+						</iframe>
+					</div>
+				</div>
+											
+			<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba locales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=locales&id=60630"> 
+						<img class="portada-imagen lazy" 
+							alt="El Museo Hist�rico Municipal Ra�l Jaluf ampl�a sus horarios"
+							title="El Museo Hist�rico Municipal Ra�l Jaluf ampl�a sus horarios" 
+							src="imagenes/noticias/2026/08/museohistoricoampliacionhorario2026.webp">
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=locales&id=60630" class="locales-color"> 
+						El Museo Hist�rico Municipal Ra�l Jaluf ampl�a sus horarios					</a>
+				</div>
+				<div class="portada-resumen">
+					El Museo Hist�rico Municipal Ra�l Jaluf ampl�a sus horarios los fines de semana. Una propuesta para que vecinos y visitantes puedan recorrer, conocer y disfrutar del patrimonio y la historia de nuestra ciudad.				</div>
+				<div class="portada-lugar-fecha locales-color">
+					Villaguay, 14-08-2026				</div>
+							</div>
+																							
+			<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba locales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=locales&id=60639"> 
+						<img class="portada-imagen lazy" 
+							alt="Dos personas hospitalizadas por choque entre colectivo camioneta "
+							title="Dos personas hospitalizadas por choque entre colectivo camioneta " 
+							src="imagenes/noticias/2026/08/choquecolectivocamionetaagisto2026.webp">
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=locales&id=60639" class="locales-color"> 
+						Dos personas hospitalizadas por choque entre colectivo camioneta 					</a>
+				</div>
+				<div class="portada-resumen">
+					Siendo aproximadamente las 19:00 horas de este jueves 13 de agosto, se registr� un siniestro vial en la intersecci�n de Acceso Carlos Fuertes y M. Alberdinos				</div>
+				<div class="portada-lugar-fecha locales-color">
+					Villaguay, 13-08-2026				</div>
+							</div>
+																							
+			<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba locales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=locales&id=60634"> 
+						<img class="portada-imagen lazy" 
+							alt="32 a�os de la ordenaci�n sacerdotal del padre Rafael Micheloud"
+							title="32 a�os de la ordenaci�n sacerdotal del padre Rafael Micheloud" 
+							src="imagenes/noticias/2026/08/32aniversariopadremicheloud2026.webp">
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=locales&id=60634" class="locales-color"> 
+						32 a�os de la ordenaci�n sacerdotal del padre Rafael Micheloud					</a>
+				</div>
+				<div class="portada-resumen">
+					Este jueves 13 de agosto se cumplen 32 a�os de la ordenaci�n sacerdotal del padre Rafael Micheloud, quien actualmente conduce la Parroquia Nuestra Sra. del C�rmen de la ciudad de Nogoy�.				</div>
+				<div class="portada-lugar-fecha locales-color">
+					Villaguay, 13-08-2026				</div>
+							</div>
+																						<div class="publicidad-cuadro">
+					<!-- Publicidad Ferreteria Villaguay -->
+					<video class="lazy-video" autoplay muted loop playsinline width="390" height="300">
+						<source data-src="imagenes/publis/ferreteria_villaguay_dic_2025.mp4" type="video/mp4">
+					</video>
+					<br><br>
+					<!-- Publicidad Elisandro -->
+					<iframe title="publicidad" src="imagenes/publis/elisandro/index.html" frameborder="0" width="280px" height="230px" scrolling="no">
+					</iframe>
+				</div>
+								
+			<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba locales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=locales&id=60629"> 
+						<img class="portada-imagen lazy" 
+							alt="El Intendente de Villaguay se reuni� con autoridades del Banco de Entre R�os"
+							title="El Intendente de Villaguay se reuni� con autoridades del Banco de Entre R�os" 
+							src="imagenes/noticias/2026/08/fuertesbancoentrerios2026.webp">
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=locales&id=60629" class="locales-color"> 
+						El Intendente de Villaguay se reuni� con autoridades del Banco de Entre R�os 					</a>
+				</div>
+				<div class="portada-resumen">
+					El Presidente Municipal, Adri�n Federico Fuertes, junto al secretario de Gobierno, Educaci�n y Cultura, a cargo de la Secretar�a de Hacienda, Presupuesto y Rentas, Dr. Florencio Montiel, recibi� a la encargada de la Sucursal Villaguay del Banco Entre R�os, Laura Beltramino, y a Gast�n Guma, representante del Sector P�blico de la entidad.				</div>
+				<div class="portada-lugar-fecha locales-color">
+					Villaguay, 13-08-2026				</div>
+							</div>
+																							
+			<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba locales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=locales&id=60628"> 
+						<img class="portada-imagen lazy" 
+							alt="ASTRONOM�A: Un planeta infernal brilla en el cielo"
+							title="ASTRONOM�A: Un planeta infernal brilla en el cielo" 
+							src="imagenes/noticias/2026/08/planetainfernal2026.webp">
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=locales&id=60628" class="locales-color"> 
+						ASTRONOM�A: Un planeta infernal brilla en el cielo					</a>
+				</div>
+				<div class="portada-resumen">
+					El Planetario de San Luis especific� que se trata de Venus cuyas temperaturas alcanzan los 470 grados y anunci� que se aproximan las mejores noches para verlo.				</div>
+				<div class="portada-lugar-fecha locales-color">
+					Villaguay, 13-08-2026				</div>
+							</div>
+																							
+			<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba locales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=locales&id=60627"> 
+						<img class="portada-imagen lazy" 
+							alt="Escuela Primaria N�1 Bartolom� Mitre: Segunda ronda de MateClubes 2026"
+							title="Escuela Primaria N�1 Bartolom� Mitre: Segunda ronda de MateClubes 2026" 
+							src="imagenes/noticias/2026/08/mateclubesrepresentantsescuelamitreagosto2026.webp">
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=locales&id=60627" class="locales-color"> 
+						Escuela Primaria N�1 Bartolom� Mitre: Segunda ronda de MateClubes 2026					</a>
+				</div>
+				<div class="portada-resumen">
+					El martes 11 de agosto, a las 14 horas, se disput� la segunda ronda de la XXIX Competencia de MateClubes 2026. La Escuela Primaria N�1 Bartolom� Mitre estuvo representada por estudiantes del Nivel Preol�mpico y Primer Nivel, quienes participaron con entusiasmo, compromiso y muchas ganas de poner en juego sus conocimientos matem�ticos. 
+				</div>
+				<div class="portada-lugar-fecha locales-color">
+					Villaguay, 13-08-2026				</div>
+							</div>
+																							
+			<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba locales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=locales&id=60626"> 
+						<img class="portada-imagen lazy" 
+							alt="Se suma equipamiento para mejora de calles en Villaguay"
+							title="Se suma equipamiento para mejora de calles en Villaguay" 
+							src="imagenes/noticias/2026/08/rastrapesadamunivikllaguayagosto2026.webp">
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=locales&id=60626" class="locales-color"> 
+						Se suma equipamiento para mejora de calles en Villaguay					</a>
+				</div>
+				<div class="portada-resumen">
+					La Municipalidad de Villaguay contin�a fortaleciendo su parque de maquinarias con la adquisici�n de una nueva rastra pesada de discos, modelo DADP 150, que ser� incorporada a las tareas que realizan diariamente los equipos municipales.				</div>
+				<div class="portada-lugar-fecha locales-color">
+					Villaguay, 13-08-2026				</div>
+							</div>
+																									<div class="publicidad-cuadro">
+					<!-- Publicidad Ahorro Agua -->
+					<iframe title="publicidad" src="imagenes/publis/ahorro_agua_municipalidad/index.html" frameborder="0" width="269px" height="97px" scrolling="no">
+					</iframe>
+					<br><br>
+					<!-- Parroquias -->
+					<div class="alert alert-success portada-parroquias">
+						<a target="_misass" href="secciones/misas.php?id=1">
+							HORARIOS DE MISA PARROQUIA SANTA ROSA DE LIMA
+						</a>
+						<hr class="portada-parroquias-divisor">
+						<a target="_misasi" href="secciones/misas.php?id=2">
+							HORARIOS DE MISA PARROQUIA INMACULADA CONCEPCION
+						</a>
+					</div>
+					<br>
+					<!-- En Facebook -->
+					<a href="https://www.facebook.com/apnoticias" target="_blank">
+						<div class="portada-facebook">
+							<img alt="AP Noticias en Facebook" src="imagenes/seguinos-facebook.webp" width="200px" height="48px">
+						</div>
+					</a>
+				</div>	
+					
+			<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba locales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=locales&id=60624"> 
+						<img class="portada-imagen lazy" 
+							alt="Trabajos realizados por Obras P�blicas municipal"
+							title="Trabajos realizados por Obras P�blicas municipal" 
+							src="imagenes/noticias/2026/08/trabajosmuni11agosto2026dos.webp">
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=locales&id=60624" class="locales-color"> 
+						Trabajos realizados por Obras P�blicas municipal					</a>
+				</div>
+				<div class="portada-resumen">
+					La Municipalidad de Villaguay llev� adelante diversas tareas de mantenimiento y servicios en distintos sectores de la ciudad, ayer martes.				</div>
+				<div class="portada-lugar-fecha locales-color">
+					Villaguay, 13-08-2026				</div>
+							</div>
+																							
+			<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba locales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=locales&id=60625"> 
+						<img class="portada-imagen lazy" 
+							alt="Por Ceferino Azambuyo. Marciano un Plomo incansable"
+							title="Por Ceferino Azambuyo. Marciano un Plomo incansable" 
+							src="imagenes/noticias/2026/08/vialibreconmarcianogodoyfoto.webp">
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=locales&id=60625" class="locales-color"> 
+						Por Ceferino Azambuyo. Marciano un Plomo incansable					</a>
+				</div>
+				<div class="portada-resumen">
+					Con la partida de Jos� Luis Godoy (Marciano) se va de la presencia terrenal uno de los memorables colaboradores de varios grupos musicales del Villaguay del ayer, con su trabajo que era esencial para aliviar la actividad de los artistas y acompa�arlos en prolongadas jornadas en los escenarios bailables de la zona desde aquella d�cada del 60'.				</div>
+				<div class="portada-lugar-fecha locales-color">
+					Villaguay, 12-08-2026				</div>
+							</div>
+																							
+			<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba locales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=locales&id=60623"> 
+						<img class="portada-imagen lazy" 
+							alt="EDICTO DIARIO"
+							title="EDICTO DIARIO" 
+							src="imagenes/noticias/2026/08/edictojusticiaagosto12.webp">
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=locales&id=60623" class="locales-color"> 
+						EDICTO DIARIO					</a>
+				</div>
+				<div class="portada-resumen">
+					EDICTO DIARIO
+El Sr. Juez a cargo del Juzgado de Primera Instancia en lo Civil, Comercial y Laboral N� 2 de la ciudad de Villaguay, Dr. Alfredo Alesio EGUIAZU, Secretar�a �nica de quien suscribe, en los autos caratulados "FERNANDEZ EMILIANO AGUSTIN S/
+SUCESORIO SIN TESTAMENTAR" Expte. n� 7906...				</div>
+				<div class="portada-lugar-fecha locales-color">
+					Villaguay, 12-08-2026				</div>
+							</div>
+																							
+			<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba locales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=locales&id=60622"> 
+						<img class="portada-imagen lazy" 
+							alt="Secuestraron auto con identificaci�n alfanum�rica no original "
+							title="Secuestraron auto con identificaci�n alfanum�rica no original " 
+							src="imagenes/noticias/2026/08/secuestroautopatentenooriginal2026.webp">
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=locales&id=60622" class="locales-color"> 
+						Secuestraron auto con identificaci�n alfanum�rica no original 					</a>
+				</div>
+				<div class="portada-resumen">
+					En el marco de las tareas de prevenci�n y control que desarrolla la Polic�a de Entre R�os, personal de la Divisi�n Investigaciones e Inteligencia Criminal � Secci�n Planta Verificadora, dependiente de la Jefatura Departamental Villaguay, procedi� este mi�rcoles al secuestro de un autom�vil que presentaba irregularidades en su identificaci�n.				</div>
+				<div class="portada-lugar-fecha locales-color">
+					Villaguay, 12-08-2026				</div>
+							</div>
+																							
+			<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba locales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=locales&id=60621"> 
+						<img class="portada-imagen lazy" 
+							alt="Detienen a un joven por intento de hurto"
+							title="Detienen a un joven por intento de hurto" 
+							src="imagenes/noticias/2026/08/detenidohurtoagosto2026dos.webp">
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=locales&id=60621" class="locales-color"> 
+						Detienen a un joven por intento de hurto					</a>
+				</div>
+				<div class="portada-resumen">
+					Durante la madrugada de este mi�rcoles, personal de la Comisar�a de Villa Gobernador Dom�nguez, dependiente de la Jefatura Departamental Villaguay, intervino r�pidamente ante un llamado que alertaba sobre un presunto intento de hurto en una vivienda.				</div>
+				<div class="portada-lugar-fecha locales-color">
+					Villaguay, 12-08-2026				</div>
+							</div>
+																							
+			<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba locales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=locales&id=60620"> 
+						<img class="portada-imagen lazy" 
+							alt="Recuperan r�pidamente elementos robados en hechos denunciados"
+							title="Recuperan r�pidamente elementos robados en hechos denunciados" 
+							src="imagenes/noticias/2026/08/motogarrafamotosierraymotograniarobadas2026.webp">
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=locales&id=60620" class="locales-color"> 
+						Recuperan r�pidamente elementos robados en hechos denunciados					</a>
+				</div>
+				<div class="portada-resumen">
+					Durante la madrugada y primeras horas del martes, personal policial de la Jefatura Departamental Villaguay intervino ante distintos hechos denunciados en la ciudad, activando de inmediato la investigaci�n correspondiente  para brindar respuestas a los damnificados.				</div>
+				<div class="portada-lugar-fecha locales-color">
+					Villaguay, 12-08-2026				</div>
+							</div>
+																									<!-- Sector Cine -->
+				<!-- Fin Sector Cine-->
+
+	</div>
+
+	<div class="fila">
+
+					<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba deportes-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=deportes&id=4316"> 
+						<img class="portada-imagen lazy" 
+							alt="Del taller municipal de Villa Clara a los clubes de Villaguay " 
+							title="Del taller municipal de Villa Clara a los clubes de Villaguay " 
+							src='imagenes/noticias/2026/08/tallerbsquetvillaclaraagosto2026.webp'>
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=deportes&id=4316" class="deportes-color"> 
+						Del taller municipal de Villa Clara a los clubes de Villaguay 					</a>
+				</div>
+				<div class="portada-resumen">
+					La actual gesti�n municipal puso en marcha el Taller Municipal de B�squet, con la convicci�n de que el deporte es una herramienta de aprendizaje y crecimiento. Actualmente 6 chicos que comenzaron el taller dieron un paso m�s y se incorporaron al b�squet oficial de clubes de Villaguay.				</div>
+				<div class="portada-lugar-fecha deportes-color">
+					Villa Clara, 13-08-2026				</div>
+			</div>
+											<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba deportes-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=deportes&id=4315"> 
+						<img class="portada-imagen lazy" 
+							alt="Importantes resultados de atletas del Tiro Federal Villaguay en La Hist�rica" 
+							title="Importantes resultados de atletas del Tiro Federal Villaguay en La Hist�rica" 
+							src='imagenes/noticias/2026/08/tirofederalenuruguayagosto2026.webp'>
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=deportes&id=4315" class="deportes-color"> 
+						Importantes resultados de atletas del Tiro Federal Villaguay en La Hist�rica					</a>
+				</div>
+				<div class="portada-resumen">
+					En la ciudad de Concepci�n del Uruguay se disput� la 6ta. fecha del ranking provincial de tiro deportivo, los d�as 8 y 9 de agosto
+los atletas representantes del tiro Villaguay obtuvieron importantes resultados y tambi�n por instituci�n.				</div>
+				<div class="portada-lugar-fecha deportes-color">
+					Villaguay, 10-08-2026				</div>
+			</div>
+											<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba deportes-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=deportes&id=4314"> 
+						<img class="portada-imagen lazy" 
+							alt="7, 8 y 9 de agosto 6� fecha Campeonato Entrerriano de Karting" 
+							title="7, 8 y 9 de agosto 6� fecha Campeonato Entrerriano de Karting" 
+							src='imagenes/noticias/2026/08/kartingcampronatoentrerrianoenvillaguayagosto2026.webp'>
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=deportes&id=4314" class="deportes-color"> 
+						7, 8 y 9 de agosto 6� fecha Campeonato Entrerriano de Karting					</a>
+				</div>
+				<div class="portada-resumen">
+					Comienza la semana de carrera y se viene la 6ta. fecha del Campeonato Entrerriano de Karting 2026 y el Parque de la Velocidad de Villaguay ya se prepara para recibir un nuevo fin de semana lleno de velocidad, emoci�n y grandes protagonistas.				</div>
+				<div class="portada-lugar-fecha deportes-color">
+					Villaguay, 04-08-2026				</div>
+			</div>
+											<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba deportes-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=deportes&id=4313"> 
+						<img class="portada-imagen lazy" 
+							alt="Excelente participaci�n del Taller de Running Villa Clara en San Salvador" 
+							title="Excelente participaci�n del Taller de Running Villa Clara en San Salvador" 
+							src='imagenes/noticias/2026/08/talerrunningvilalclaraagosto2026.webp'>
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=deportes&id=4313" class="deportes-color"> 
+						Excelente participaci�n del Taller de Running Villa Clara en San Salvador					</a>
+				</div>
+				<div class="portada-resumen">
+					Los integrantes del Taller de Running de Villa Clara: Luciano Fink, Pablo G�mez, Irina Fern�ndez, Yanina Beker, Ramiro Gonz�lez y Leandro G�mez participaron en la ciudad de San Salvador de una nueva fecha del Circuito Jeep 5K � 4 Fechas, 4 Destinos.				</div>
+				<div class="portada-lugar-fecha deportes-color">
+					Villa Clara, 02-08-2026				</div>
+			</div>
+										<div class="publicidad-cuadro">
+					<!-- Publicidad Nuniez -->
+					<video class="lazy-video" autoplay muted loop playsinline width="300" height="230">
+						<source data-src="imagenes/publis/nuniez_sistemas_2021.webm" type="video/webm">
+					</video>
+				</div>
+								<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba deportes-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=deportes&id=4312"> 
+						<img class="portada-imagen lazy" 
+							alt="MOUNTAIN BIKE: BALLESTEROS SUBI� AL PODIO EN TANDIL" 
+							title="MOUNTAIN BIKE: BALLESTEROS SUBI� AL PODIO EN TANDIL" 
+							src='imagenes/noticias/2026/07/buenarentandiljulio2026.webp'>
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=deportes&id=4312" class="deportes-color"> 
+						MOUNTAIN BIKE: BALLESTEROS SUBI� AL PODIO EN TANDIL					</a>
+				</div>
+				<div class="portada-resumen">
+					EN TANDIL, PROVINCIA DE BENOS AIRES, COMPITI� EN LA FECHA 2 DEL CAMPEONATO ARGENTINO ABIERTO EL VILLAGUAYENSE MAXIMILIANO BUENAR.				</div>
+				<div class="portada-lugar-fecha deportes-color">
+					Villaguay, 28-07-2026				</div>
+			</div>
+											
+	</div>
+
+	<div class="fila">
+
+					<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba provinciales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=provinciales&id=33265"> 
+						<img class="portada-imagen lazy" 
+								alt="Walter Franzotti ya est� ideando la construcci�n de su segundo avi�n, un biplano rom�ntico" 
+								title="Walter Franzotti ya est� ideando la construcci�n de su segundo avi�n, un biplano rom�ntico"
+								src='imagenes/noticias/2026/08/avionelpalenqueartesanal2026.webp'>
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=provinciales&id=33265" class="provinciales-color"> 
+						Walter Franzotti ya est� ideando la construcci�n de su segundo avi�n, un biplano rom�ntico					</a>
+				</div>
+				<div class="portada-resumen">
+					A sus 43 a�os, este apasionado entrerriano cumpli� el sue�o de construir con sus propias manos una r�plica biplaza de un ic�nico Piper PA-18. Tras cuatro a�os de arduo trabajo de construcci�n y otros cuatro disfrutando del vuelo recreativo, Franzotti analiza los costos de la aviaci�n experimental y anticipa su pr�ximo proyecto: fabricar un biplano rom�ntico.				</div>
+				<div class="portada-lugar-fecha provinciales-color">
+					El Palenque, 14-08-2026				</div>
+			</div>
+				
+					<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba provinciales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=provinciales&id=33264"> 
+						<img class="portada-imagen lazy" 
+								alt="AMIA y BBVA lanzan la cuarta edici�n de Emprender +55" 
+								title="AMIA y BBVA lanzan la cuarta edici�n de Emprender +55"
+								src='imagenes/noticias/2026/08/amiaemprednermas55agosto2026.webp'>
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=provinciales&id=33264" class="provinciales-color"> 
+						AMIA y BBVA lanzan la cuarta edici�n de Emprender +55					</a>
+				</div>
+				<div class="portada-resumen">
+					AMIA, junto con el apoyo de BBVA, pone en marcha la cuarta edici�n de "Emprender +55", el programa de formaci�n gratuito destinado a personas mayores de 55 a�os que tienen un proyecto de emprendimiento y quieren llevarlo adelante. La propuesta comenzar� el jueves 3 de septiembre y se extender� a lo largo de diez encuentros.				</div>
+				<div class="portada-lugar-fecha provinciales-color">
+					Buenos Aires, 14-08-2026				</div>
+			</div>
+				
+					<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba provinciales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=provinciales&id=33259"> 
+						<img class="portada-imagen lazy" 
+								alt="Reabrieron la Biblioteca y Sala de Lectura del Museo Hist�rico de Entre R�os" 
+								title="Reabrieron la Biblioteca y Sala de Lectura del Museo Hist�rico de Entre R�os"
+								src='imagenes/noticias/2026/08/reaperturabibliotecysalalecturamuseoentrerios2026.webp'>
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=provinciales&id=33259" class="provinciales-color"> 
+						Reabrieron la Biblioteca y Sala de Lectura del Museo Hist�rico de Entre R�os					</a>
+				</div>
+				<div class="portada-resumen">
+					La Biblioteca y Sala de Lectura del Museo Hist�rico de Entre R�os Martiniano Leguizam�n (Buenos Aires 286, Paran�) reabri� sus puertas este jueves. El espacio fue recuperado despu�s de un deterioro de a�os, gracias a obras edilicias que demandaron una inversi�n de m�s de 21 millones de pesos provenientes de las arcas provinciales. Guarda patrimonio esencial y est� abierto para consultas.				</div>
+				<div class="portada-lugar-fecha provinciales-color">
+					Paran�, 14-08-2026				</div>
+			</div>
+				
+					<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba provinciales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=provinciales&id=33258"> 
+						<img class="portada-imagen lazy" 
+								alt="Finaliz� una diplomatura en cooperativismo impulsada por el gobierno provincial y la Uader" 
+								title="Finaliz� una diplomatura en cooperativismo impulsada por el gobierno provincial y la Uader"
+								src='imagenes/noticias/2026/08/diplomaturacooperativismouader2026.webp'>
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=provinciales&id=33258" class="provinciales-color"> 
+						Finaliz� una diplomatura en cooperativismo impulsada por el gobierno provincial y la Uader					</a>
+				</div>
+				<div class="portada-resumen">
+					Unos 50 cooperativistas de toda la provincia completaron la Diplomatura en Gesti�n y Desarrollo de Cooperativas, iniciativa surgida de un convenio entre el gobierno provincial y la Universidad Aut�noma de Entre R�os (Uader).				</div>
+				<div class="portada-lugar-fecha provinciales-color">
+					Paran�, 14-08-2026				</div>
+			</div>
+				
+					<div class="portada-noticia">
+				<hr class="portada-divisor-noticias-arriba provinciales-color" size="3px">
+									<a href="secciones/ampliada.php?seccion=provinciales&id=33257"> 
+						<img class="portada-imagen lazy" 
+								alt="M�s de 200 personas comenzaron el ciclo de microseminarios sobre Literaturas Escritas en Entre R�os" 
+								title="M�s de 200 personas comenzaron el ciclo de microseminarios sobre Literaturas Escritas en Entre R�os"
+								src='imagenes/noticias/2026/08/cicloliteraturasescritasagosto2026.webp'>
+					</a>
+								<div class="portada-titulo">
+					<a href="secciones/ampliada.php?seccion=provinciales&id=33257" class="provinciales-color"> 
+						M�s de 200 personas comenzaron el ciclo de microseminarios sobre Literaturas Escritas en Entre R�os					</a>
+				</div>
+				<div class="portada-resumen">
+					La Biblioteca Provincial y la Editorial de Entre R�os, organismos de la Secretar�a de Cultura provincial, invitan a sumarse a los microseminarios de lectura cr�tica Literaturas Escritas en Entre R�os. La propuesta es presencial y virtual, libre y gratuita y con inscripci�n previa. La convocatoria sigue abierta a pr�ximas instancias o para un recorrido asincr�nico.				</div>
+				<div class="portada-lugar-fecha provinciales-color">
+					Paran�, 14-08-2026				</div>
+			</div>
+				
+				<div class="portada-cuadro">
+			<!-- Publicidad Google -->
+			<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7210294503470052"
+				crossorigin="anonymous"></script>
+			<!-- 250x250, creado 29/09/08 -->
+			<ins class="adsbygoogle"
+				style="display:inline-block;width:250px;height:250px"
+				data-ad-client="ca-pub-7210294503470052"
+				data-ad-slot="1863617399"></ins>
+			<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+		</div>
+
+	</div>
+
+	<div class="row">
+		<div class="col-lg-6 col-md-6 col-sm-12">
+			<!-- Quiniela -->
+			<div class="text-center">
+				<a target="_tombola" href="http://www.vivitusuerte.com/">
+					<img alt="Tombola" src="imagenes/tombola_iafas.jpg" title="Tombola IAFAS" width="270px"></a>
+			</div>
+			<br>
+			<!-- Sobre la Pagina -->
+			<div class="apnoticias-datos">
+				<img alt="AP Noticias" src="imagenes/logoape.jpg" width="171px" height="136px"><br>
+				Portal de Noticias de Villaguay y la Region<br>
+				Director: Ceferino Azambuyo<br>
+				Cel: 03455 15646804<br>
+				Rocha e Isabel La Catolica<br>
+				Villaguay - Entre Rios - Argentina
+			</div>
+			<br>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-12">
+			<!-- Data Fiscal -->
+			<div class="mt-2 text-center">
+				<a href="http://qr.afip.gob.ar/?qr=WnZRGzJRB9dBBnLsr64xpg,," target="_F960AFIPInfo">
+					<img alt="AFIP" src="http://www.afip.gob.ar/images/f960/DATAWEB.jpg" border="0">
+				</a>
+			</div>
+			<br>
+		</div>
+	</div>
+
+</div>
+    <footer class="p-3"> 
+
+        AP Noticias | 2004-2026 | redaccion@apnoticias.com.ar | 03455-422884 / 03455-15646804
+
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+.weatherBar {
+  background-color: var(--surface-2);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.weatherTrack {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.weatherItem {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  background-color: var(--surface-1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+}
+
+.cityName {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.weatherIcon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.temperature {
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  .weatherTrack {
+    gap: 0.5rem;
+  }
+  .weatherItem {
+    padding: 0.15rem 0.5rem;
+    font-size: 0.75rem;
+  }
+}
