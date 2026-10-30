@@ -1,4 +1,21 @@
 {
-  "sidebar": [],
-  "header": []
+  "header": [
+    {
+      "id": "ksm-servicios-header",
+      "imageUrl": "/ksm.png",
+      "altText": "KSM Servicios — Creación de páginas web y apps",
+      "websiteUrl": "https://ksmservicios.com.ar/",
+      "whatsappNumber": "1166508379"
+    }
+  ],
+  "sidebar": [
+    {
+      "id": "ksm-servicios-sidebar",
+      "imageUrl": "/ksm.png",
+      "altText": "KSM Servicios — Creación de páginas web y apps",
+      "websiteUrl": "https://ksmservicios.com.ar/",
+      "whatsappNumber": "1166508379"
+    }
+  ]
 }
+
