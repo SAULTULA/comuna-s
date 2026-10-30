@@ -2,16 +2,9 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const Parser = require('rss-parser');
 
-const rssParser = new Parser({
-  timeout: 8000,
-  customFields: {
-    item: [
-      // Blogger / media-RSS thumbnail
-      ['media:thumbnail', 'media:thumbnail', { keepArray: false }],
-      ['media:content',   'media:content',   { keepArray: false }],
-    ],
-  },
-});
+// Parser sin customFields para máxima compatibilidad con Vercel/Node serverless.
+// Las imágenes de Blogger (media:thumbnail) se extraen por separado vía axios+regex.
+const rssParser = new Parser({ timeout: 8000 });
 
 const HEADERS = {
   'User-Agent':
@@ -19,8 +12,10 @@ const HEADERS = {
 };
 
 /**
- * Intenta traer noticias vía RSS. Si el sitio no tiene rssUrl configurada,
- * prueba automáticamente rutas comunes (/feed, /rss, /feed.xml) sobre `url`.
+ * Descarga el feed XML y lo parsea con rss-parser.
+ * Para feeds Atom de Blogger (que usan media:thumbnail) descarga el XML
+ * con axios y extrae las URLs de imagen antes de parsear, para evitar
+ * problemas con namespaces XML en entornos serverless.
  */
 async function tryRss(source) {
   const candidates = [];
@@ -36,17 +31,25 @@ async function tryRss(source) {
   for (const feedUrl of candidates) {
     if (!feedUrl) continue;
     try {
-      const feed = await rssParser.parseURL(feedUrl);
-      if (feed.items && feed.items.length) {
-        return feed.items.slice(0, 12).map((item) => ({
-          title: item.title || 'Sin título',
-          link: item.link || source.url,
-          image: extractImageFromRssItem(item),
-          excerpt: cleanExcerpt(item.contentSnippet || item.content || ''),
-          source: source.name,
-          publishedAt: item.isoDate || item.pubDate || null,
-        }));
-      }
+      // Descargar el XML raw con axios para poder extraer media:thumbnail
+      const response = await axios.get(feedUrl, { headers: HEADERS, timeout: 8000, responseType: 'text' });
+      const xmlText = response.data;
+
+      // Extraer todas las URLs de media:thumbnail del XML raw (método Blogger)
+      const mediaThumbnailUrls = extractMediaThumbnailsFromXml(xmlText);
+
+      // Parsear el feed con rss-parser
+      const feed = await rssParser.parseString(xmlText);
+      if (!feed.items || !feed.items.length) continue;
+
+      return feed.items.slice(0, 12).map((item, idx) => ({
+        title: item.title || 'Sin título',
+        link: item.link || source.url,
+        image: mediaThumbnailUrls[idx] || extractImageFromRssItem(item),
+        excerpt: cleanExcerpt(item.contentSnippet || item.content || ''),
+        source: source.name,
+        publishedAt: item.isoDate || item.pubDate || null,
+      }));
     } catch (err) {
       // Esta ruta de RSS no existe o falló, probamos la siguiente candidata.
       continue;
@@ -55,22 +58,30 @@ async function tryRss(source) {
   return null;
 }
 
-function extractImageFromRssItem(item) {
-  // 1. Blogger / media-RSS: <media:thumbnail url="..."> (Atom feed)
-  const mediaThumbnail = item['media:thumbnail'];
-  if (mediaThumbnail) {
-    // Puede ser objeto { url } o string directo
-    const url = (typeof mediaThumbnail === 'object' ? mediaThumbnail.$ && mediaThumbnail.$.url : null)
-      || (typeof mediaThumbnail === 'string' ? mediaThumbnail : null);
-    if (url) return url;
+/**
+ * Extrae todas las URLs de <media:thumbnail url="..."> del XML en orden.
+ * Regex puro sobre el texto del XML — funciona en cualquier entorno.
+ */
+function extractMediaThumbnailsFromXml(xmlText) {
+  const urls = [];
+  const re = /media:thumbnail[^>]+url="([^"]+)"/g;
+  let match;
+  while ((match = re.exec(xmlText)) !== null) {
+    urls.push(match[1]);
   }
-  // 2. Enclosure estándar (podcasts, algunos RSS)
+  return urls;
+}
+
+
+function extractImageFromRssItem(item) {
+  // Enclosure estándar (podcasts, algunos RSS WordPress)
   if (item.enclosure && item.enclosure.url) return item.enclosure.url;
-  // 3. <img> dentro del content:encoded o content HTML
+  // <img> dentro del content:encoded o content HTML
   const html = item['content:encoded'] || item.content || '';
   const match = /<img[^>]+src="([^">]+)"/.exec(html);
   return match ? match[1] : null;
 }
+
 
 function cleanExcerpt(text) {
   return text.replace(/\s+/g, ' ').trim().slice(0, 220);
