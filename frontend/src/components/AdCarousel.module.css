@@ -1,0 +1,191 @@
+/* ── AdCarousel ─────────────────────────────────── */
+.carousel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm, 8px);
+  background: var(--bg-mac-card, rgba(255,255,255,0.05));
+  border: 1px solid var(--border-mac, rgba(255,255,255,0.12));
+  border-radius: var(--radius-lg, 14px);
+  padding: var(--spacing-md, 12px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Label */
+.carousel__label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-secondary, rgba(255,255,255,0.5));
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border-mac, rgba(255,255,255,0.08));
+}
+
+.carousel__labelIcon {
+  font-size: 0.85rem;
+}
+
+/* Track */
+.carousel__track {
+  width: 100%;
+  border-radius: calc(var(--radius-lg, 14px) - 4px);
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+/* Slide */
+.carousel__slide {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.carousel__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.carousel__slide:hover .carousel__image {
+  transform: scale(1.03);
+}
+
+/* Badges */
+.carousel__visitBadge,
+.carousel__waBadge {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  pointer-events: none;
+}
+
+.carousel__visitBadge {
+  background: rgba(10, 132, 255, 0.75);
+  color: #fff;
+}
+
+.carousel__waBadge {
+  background: rgba(37, 211, 102, 0.8);
+  color: #fff;
+}
+
+/* Placeholder */
+.carousel__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255,255,255,0.02),
+    rgba(255,255,255,0.02) 10px,
+    transparent 10px,
+    transparent 20px
+  );
+}
+
+.carousel__placeholderIcon {
+  font-size: 1.8rem;
+  opacity: 0.4;
+}
+
+.carousel__placeholderText {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--text-secondary, rgba(255,255,255,0.45));
+  font-weight: 500;
+}
+
+.carousel__placeholderCta {
+  font-size: 0.72rem;
+  color: var(--accent-color, #0a84ff);
+  font-weight: 600;
+  text-decoration: none;
+  padding: 4px 12px;
+  border: 1px solid var(--accent-color, #0a84ff);
+  border-radius: 999px;
+  transition: all 0.2s ease;
+}
+
+.carousel__placeholderCta:hover {
+  background: var(--accent-color, #0a84ff);
+  color: #fff;
+}
+
+/* Controls */
+.carousel__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.carousel__arrow {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--text-primary, #fff);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.carousel__arrow:hover {
+  background: rgba(255,255,255,0.18);
+  border-color: rgba(255,255,255,0.3);
+}
+
+.carousel__dots {
+  display: flex;
+  gap: 5px;
+}
+
+.carousel__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  padding: 0;
+}
+
+.carousel__dot--active {
+  background: var(--accent-color, #0a84ff);
+  transform: scale(1.3);
+}
+
+.carousel__counter {
+  margin: 0;
+  text-align: center;
+  font-size: 0.68rem;
+  color: var(--text-secondary, rgba(255,255,255,0.35));
+}

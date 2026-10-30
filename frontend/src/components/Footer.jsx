@@ -13,6 +13,9 @@ export default function Footer() {
               <img src="/logo.png" alt="KSM Servicios Logo" className={styles.ksmLogo} />
               <span className={styles.ksmLinkText}>ksmservicios.com.ar</span>
             </a>
+            <a href="https://wa.me/5491166508379" target="_blank" rel="noopener noreferrer" className={styles.waLink}>
+              WhatsApp: 1166508379
+            </a>
           </div>
         </div>
         <div className={styles.copyright}>

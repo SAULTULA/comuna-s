@@ -66,7 +66,9 @@ export default function NewsFeed() {
   }
 
   return (
-    <section className="news-grid">
+    <section>
+      <h2 className="news-section-title">Noticias de los Principales Portales</h2>
+      <div className="news-grid">
       {items.map((item, idx) => {
         const isThirdSlot = idx === 2;
 
@@ -76,11 +78,8 @@ export default function NewsFeed() {
               <div className="widget-card">
                 <iframe 
                   src="https://gente-de-medios.vercel.app/widget?id=comuna-s" 
-                  width="100%" 
-                  height="100%" 
                   frameBorder="0" 
                   scrolling="no" 
-                  style={{ border: 'none', overflow: 'hidden', borderRadius: 'var(--radius-lg)' }}
                   title="Contador de visitas"
                 ></iframe>
               </div>
@@ -89,6 +88,7 @@ export default function NewsFeed() {
           </React.Fragment>
         );
       })}
+      </div>
     </section>
   );
 }

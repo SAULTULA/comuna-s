@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin — Publicidades | Comuna-S</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Variables ─────────────────────────────────────── */
+    :root {
+      --bg-base:       #0d0d0f;
+      --bg-card:       rgba(255,255,255,0.04);
+      --bg-card-hover: rgba(255,255,255,0.07);
+      --border:        rgba(255,255,255,0.09);
+      --border-focus:  rgba(10,132,255,0.6);
+      --accent:        #0a84ff;
+      --accent-hover:  #1a8fff;
+      --success:       #30d158;
+      --danger:        #ff453a;
+      --warning:       #ffd60a;
+      --text-0:        #f5f5f7;
+      --text-1:        rgba(255,255,255,0.55);
+      --text-2:        rgba(255,255,255,0.3);
+      --radius-sm:     8px;
+      --radius-md:     12px;
+      --radius-lg:     16px;
+      --font:          'Inter', system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg-base);
+      color: var(--text-0);
+      min-height: 100vh;
+    }
+
+    /* ── Layout ─────────────────────────────────────────── */
+    .shell {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+    }
+
+    /* ── Top bar ─────────────────────────────────────────── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .topbar__brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .topbar__logo {
+      width: 36px;
+      height: 36px;
+      background: var(--accent);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .topbar__title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .topbar__sub {
+      font-size: 0.72rem;
+      color: var(--text-1);
+    }
+
+    /* ── Deploy button ───────────────────────────────────── */
+    .btn-deploy {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-md);
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: var(--font);
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .btn-deploy:hover { background: var(--accent-hover); transform: translateY(-1px); }
+    .btn-deploy:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .btn-deploy--running {
+      background: var(--warning);
+      color: #000;
+      animation: pulse-btn 1.5s ease infinite;
+    }
+
+    .btn-deploy--success { background: var(--success); }
+    .btn-deploy--error   { background: var(--danger); }
+
+    @keyframes pulse-btn {
+      0%,100% { opacity: 1; }
+      50%      { opacity: 0.75; }
+    }
+
+    /* ── Deploy log ──────────────────────────────────────── */
+    .deploy-log {
+      display: none;
+      background: #000;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      font-family: 'Courier New', monospace;
+      font-size: 0.78rem;
+      color: #b8ffb0;
+      white-space: pre-wrap;
+      max-height: 200px;
+      overflow-y: auto;
+      margin-bottom: 2rem;
+    }
+
+    .deploy-log--visible { display: block; }
+
+    /* ── Section tabs ────────────────────────────────────── */
+    .tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 1.5rem;
+    }
+
+    .tab {
+      flex: 1;
+      padding: 10px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-1);
+      font-family: var(--font);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .tab--active {
+      background: rgba(10,132,255,0.15);
+      border-color: rgba(10,132,255,0.4);
+      color: var(--accent);
+    }
+
+    /* ── Panel de anuncios ───────────────────────────────── */
+    .panel { display: none; }
+    .panel--visible { display: block; }
+
+    .panel__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .panel__title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-0);
+    }
+
+    .panel__count {
+      font-size: 0.75rem;
+      color: var(--text-1);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .panel__limit {
+      font-size: 0.78rem;
+      color: var(--text-1);
+      margin-bottom: 1rem;
+    }
+
+    /* ── Ad cards grid ───────────────────────────────────── */
+    .ads-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── Ad card ─────────────────────────────────────────── */
+    .ad-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+      display: grid;
+      grid-template-columns: 100px 1fr auto;
+      gap: 1rem;
+      align-items: start;
+      transition: border-color 0.2s ease;
+    }
+
+    .ad-card:hover { border-color: rgba(255,255,255,0.15); }
+
+    /* Imagen preview */
+    .ad-card__preview {
+      width: 100px;
+      height: 70px;
+      border-radius: var(--radius-sm);
+      background: rgba(255,255,255,0.05);
+      border: 1px dashed var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+      overflow: hidden;
+      position: relative;
+      transition: background 0.2s ease;
+    }
+
+    .ad-card__preview:hover { background: rgba(255,255,255,0.1); }
+
+    .ad-card__preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .ad-card__preview-label {
+      font-size: 0.65rem;
+      color: var(--text-2);
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .ad-card__preview-icon { font-size: 1.3rem; }
+
+    .ad-card__preview input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Formulario del ad */
+    .ad-card__form {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .field__label {
+      font-size: 0.68rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-1);
+    }
+
+    .field__input {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-0);
+      font-family: var(--font);
+      font-size: 0.85rem;
+      padding: 7px 10px;
+      outline: none;
+      width: 100%;
+      transition: border-color 0.2s ease;
+    }
+
+    .field__input:focus { border-color: var(--border-focus); }
+    .field__input::placeholder { color: var(--text-2); }
+
+    .field__hint {
+      font-size: 0.66rem;
+      color: var(--text-2);
+    }
+
+    /* Acciones del card */
+    .ad-card__actions {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      align-items: center;
+    }
+
+    /* ── Botones generales ───────────────────────────────── */
+    .btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid transparent;
+      border-radius: var(--radius-sm);
+      padding: 7px 14px;
+      font-family: var(--font);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn--primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn--primary:hover { background: var(--accent-hover); }
+
+    .btn--ghost {
+      background: transparent;
+      border-color: var(--border);
+      color: var(--text-1);
+    }
+    .btn--ghost:hover {
+      background: var(--bg-card-hover);
+      border-color: rgba(255,255,255,0.2);
+      color: var(--text-0);
+    }
+
+    .btn--danger {
+      background: transparent;
+      border-color: rgba(255,69,58,0.35);
+      color: var(--danger);
+    }
+    .btn--danger:hover {
+      background: rgba(255,69,58,0.12);
+      border-color: var(--danger);
+    }
+
+    .btn--icon {
+      padding: 7px;
+      border-radius: var(--radius-sm);
+      font-size: 1rem;
+    }
+
+    /* ── Add slot button ─────────────────────────────────── */
+    .btn-add-slot {
+      width: 100%;
+      padding: 12px;
+      border-radius: var(--radius-lg);
+      border: 1px dashed var(--border);
+      background: transparent;
+      color: var(--text-1);
+      font-family: var(--font);
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-add-slot:hover {
+      background: var(--bg-card);
+      border-color: rgba(10,132,255,0.35);
+      color: var(--accent);
+    }
+
+    .btn-add-slot:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    /* ── Save bar ────────────────────────────────────────── */
+    .save-bar {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: rgba(20,20,22,0.9);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 10px 10px 10px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      z-index: 100;
+      transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
+      font-size: 0.85rem;
+      color: var(--text-1);
+    }
+
+    .save-bar--visible {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ── Toast ───────────────────────────────────────────── */
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--success);
+      color: #000;
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 10px 18px;
+      border-radius: 999px;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: all 0.3s ease;
+      z-index: 200;
+      pointer-events: none;
+    }
+
+    .toast--error { background: var(--danger); color: #fff; }
+    .toast--visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Slot index badge ────────────────────────────────── */
+    .slot-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      background: rgba(10,132,255,0.15);
+      border: 1px solid rgba(10,132,255,0.3);
+      border-radius: 50%;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ── Upload overlay ──────────────────────────────────── */
+    .uploading-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm);
+      font-size: 0.65rem;
+      color: #fff;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .spinner {
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    /* ── Empty state ─────────────────────────────────────── */
+    .empty-state {
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-1);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="topbar__brand">
+      <div class="topbar__logo">📢</div>
+      <div>
+        <div class="topbar__title">Panel de Publicidades</div>
+        <div class="topbar__sub">Comuna-S — Administración local</div>
+      </div>
+    </div>
+    <button id="btn-deploy" class="btn-deploy">
+      <span id="deploy-icon">🚀</span>
+      <span id="deploy-label">Deploy a Vercel</span>
+    </button>
+  </div>
+
+  <!-- Deploy log -->
+  <pre id="deploy-log" class="deploy-log"></pre>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab tab--active" data-tab="header" id="tab-header">
+      📢 Banner Header (barra superior)
+    </button>
+    <button class="tab" data-tab="sidebar" id="tab-sidebar">
+      🎠 Carrusel Sidebar (lateral)
+    </button>
+  </div>
+
+  <!-- Panel Header -->
+  <div class="panel panel--visible" id="panel-header">
+    <div class="panel__header">
+      <span class="panel__title">Anuncios de la barra superior</span>
+      <span class="panel__count" id="count-header">0 / 5</span>
+    </div>
+    <p class="panel__limit">Máximo 5 anuncios. Se muestran en rotación automática. Si hay imagen, se muestra con thumbnail. Redirige a web o WhatsApp.</p>
+    <div class="ads-grid" id="grid-header"></div>
+    <button class="btn-add-slot" id="add-header" onclick="addSlot('header')">
+      <span>＋</span> Agregar anuncio al header
+    </button>
+  </div>
+
+  <!-- Panel Sidebar -->
+  <div class="panel" id="panel-sidebar">
+    <div class="panel__header">
+      <span class="panel__title">Anuncios del carrusel lateral</span>
+      <span class="panel__count" id="count-sidebar">0 / 5</span>
+    </div>
+    <p class="panel__limit">Máximo 5 anuncios. Se muestran como carrusel en el sidebar derecho junto a las radios.</p>
+    <div class="ads-grid" id="grid-sidebar"></div>
+    <button class="btn-add-slot" id="add-sidebar" onclick="addSlot('sidebar')">
+      <span>＋</span> Agregar anuncio al sidebar
+    </button>
+  </div>
+
+</div>
+
+<!-- Save bar flotante -->
+<div class="save-bar" id="save-bar">
+  <span>Tenés cambios sin guardar</span>
+  <button class="btn btn--ghost" onclick="loadAds()">Descartar</button>
+  <button class="btn btn--primary" onclick="saveAds()">💾 Guardar cambios</button>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+  // ── Estado ────────────────────────────────────────
+  const state = { header: [], sidebar: [] };
+  let isDirty = false;
+  let deployPollInterval = null;
+
+  // ── Inicialización ────────────────────────────────
+  document.addEventListener('DOMContentLoaded', () => {
+    loadAds();
+    setupTabs();
+    setupDeploy();
+  });
+
+  // ── Tabs ──────────────────────────────────────────
+  function setupTabs() {
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('tab--active'));
+        document.querySelectorAll('.panel').forEach(p => p.classList.remove('panel--visible'));
+        tab.classList.add('tab--active');
+        document.getElementById(`panel-${target}`).classList.add('panel--visible');
+      });
+    });
+  }
+
+  // ── Cargar ads ────────────────────────────────────
+  async function loadAds() {
+    try {
+      const res  = await fetch('/api/ads');
+      const data = await res.json();
+      state.header  = (data.header  || []).slice(0, 5);
+      state.sidebar = (data.sidebar || []).slice(0, 5);
+      renderGrid('header');
+      renderGrid('sidebar');
+      setDirty(false);
+    } catch (err) {
+      showToast('Error al cargar anuncios', true);
+    }
+  }
+
+  // ── Guardar ads ───────────────────────────────────
+  async function saveAds() {
+    try {
+      const res = await fetch('/api/ads', {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ header: state.header, sidebar: state.sidebar }),
+      });
+      if (!res.ok) throw new Error();
+      setDirty(false);
+      showToast('✅ Cambios guardados correctamente');
+    } catch {
+      showToast('❌ Error al guardar cambios', true);
+    }
+  }
+
+  // ── Render grid ───────────────────────────────────
+  function renderGrid(zone) {
+    const grid = document.getElementById(`grid-${zone}`);
+    const addBtn = document.getElementById(`add-${zone}`);
+    const count  = document.getElementById(`count-${zone}`);
+    const ads    = state[zone];
+
+    count.textContent = `${ads.length} / 5`;
+    addBtn.disabled   = ads.length >= 5;
+
+    grid.innerHTML = '';
+
+    if (ads.length === 0) {
+      grid.innerHTML = '<div class="empty-state">No hay anuncios. Hacé clic en "Agregar" para crear el primero.</div>';
+      return;
+    }
+
+    ads.forEach((ad, i) => {
+      const card = buildAdCard(zone, ad, i);
+      grid.appendChild(card);
+    });
+  }
+
+  // ── Construir card de anuncio ──────────────────────
+  function buildAdCard(zone, ad, index) {
+    const div = document.createElement('div');
+    div.className = 'ad-card';
+    div.dataset.zone  = zone;
+    div.dataset.index = index;
+
+    const hasImage = ad.imageUrl && ad.imageUrl.trim() !== '';
+
+    div.innerHTML = `
+      <!-- Preview imagen -->
+      <div class="ad-card__preview" title="Clic para cambiar imagen">
+        ${hasImage
+          ? `<img src="${ad.imageUrl}" alt="Preview" onerror="this.parentElement.innerHTML='<div class=ad-card__preview-icon>🖼️</div><div class=ad-card__preview-label>Error al cargar</div>'" />`
+          : `<div class="ad-card__preview-icon">🖼️</div>
+             <div class="ad-card__preview-label">Subir imagen<br>(opcional)</div>`
+        }
+        <input type="file" accept="image/*" title="Seleccionar imagen" />
+        <div class="uploading-overlay" style="display:none">
+          <div class="spinner"></div>
+        </div>
+      </div>
+
+      <!-- Formulario -->
+      <div class="ad-card__form">
+        <div class="slot-badge">${index + 1}</div>
+        <div class="field">
+          <label class="field__label">Nombre del auspiciante *</label>
+          <input class="field__input" type="text" placeholder="Ej: Farmacia Central" 
+                 value="${escHtml(ad.altText || '')}" data-field="altText" />
+        </div>
+        <div class="field">
+          <label class="field__label">Sitio web</label>
+          <input class="field__input" type="url" placeholder="https://ejemplo.com" 
+                 value="${escHtml(ad.websiteUrl || '')}" data-field="websiteUrl" />
+        </div>
+        <div class="field">
+          <label class="field__label">WhatsApp</label>
+          <input class="field__input" type="text" placeholder="549XXXXXXXXXX" 
+                 value="${escHtml(ad.whatsappNumber || '')}" data-field="whatsappNumber" />
+          <span class="field__hint">Usar si no tiene web. Formato: 549 + número sin guiones.</span>
+        </div>
+      </div>
+
+      <!-- Acciones -->
+      <div class="ad-card__actions">
+        <button class="btn btn--icon btn--danger" title="Eliminar anuncio">🗑</button>
+      </div>
+    `;
+
+    // Evento: cambio de imagen
+    const fileInput  = div.querySelector('input[type="file"]');
+    const overlay    = div.querySelector('.uploading-overlay');
+    const previewBox = div.querySelector('.ad-card__preview');
+
+    fileInput.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      overlay.style.display = 'flex';
+
+      const form = new FormData();
+      form.append('image', file);
+
+      try {
+        const res  = await fetch('/api/upload', { method: 'POST', body: form });
+        const data = await res.json();
+        if (data.url) {
+          state[zone][index].imageUrl = data.url;
+          setDirty(true);
+          renderGrid(zone); // re-render para mostrar nueva imagen
+        } else {
+          showToast('Error al subir la imagen', true);
+        }
+      } catch {
+        showToast('Error al subir la imagen', true);
+      } finally {
+        overlay.style.display = 'none';
+      }
+    });
+
+    // Eventos: campos de texto
+    div.querySelectorAll('.field__input').forEach(input => {
+      input.addEventListener('input', () => {
+        state[zone][index][input.dataset.field] = input.value.trim();
+        setDirty(true);
+      });
+    });
+
+    // Evento: eliminar
+    div.querySelector('.btn--danger').addEventListener('click', () => {
+      if (confirm(`¿Eliminar el anuncio #${index + 1}?`)) {
+        // Si tiene imagen propia, eliminarla del servidor
+        const imgUrl = state[zone][index].imageUrl || '';
+        if (imgUrl.startsWith('/ads/') && imgUrl !== '/ads/') {
+          fetch('/api/image', {
+            method:  'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify({ filename: imgUrl.replace('/ads/', '') }),
+          }).catch(() => {});
+        }
+        state[zone].splice(index, 1);
+        setDirty(true);
+        renderGrid(zone);
+      }
+    });
+
+    return div;
+  }
+
+  // ── Agregar slot vacío ────────────────────────────
+  function addSlot(zone) {
+    if (state[zone].length >= 5) return;
+    state[zone].push({
+      id:            `ad-${Date.now()}`,
+      imageUrl:      '',
+      altText:       '',
+      websiteUrl:    '',
+      whatsappNumber: '',
+    });
+    setDirty(true);
+    renderGrid(zone);
+  }
+
+  // ── Dirty state ───────────────────────────────────
+  function setDirty(dirty) {
+    isDirty = dirty;
+    const bar = document.getElementById('save-bar');
+    if (dirty) bar.classList.add('save-bar--visible');
+    else       bar.classList.remove('save-bar--visible');
+  }
+
+  // ── Deploy ────────────────────────────────────────
+  function setupDeploy() {
+    document.getElementById('btn-deploy').addEventListener('click', async () => {
+      if (isDirty) {
+        const ok = confirm('Tenés cambios sin guardar. ¿Guardar antes de hacer el deploy?');
+        if (ok) await saveAds();
+      }
+
+      const btn   = document.getElementById('btn-deploy');
+      const icon  = document.getElementById('deploy-icon');
+      const label = document.getElementById('deploy-label');
+      const log   = document.getElementById('deploy-log');
+
+      btn.disabled  = true;
+      btn.className = 'btn-deploy btn-deploy--running';
+      icon.textContent  = '⏳';
+      label.textContent = 'Deployando...';
+      log.textContent   = '';
+      log.classList.add('deploy-log--visible');
+
+      try {
+        await fetch('/api/deploy', { method: 'POST' });
+        pollDeployStatus();
+      } catch {
+        showToast('Error al iniciar el deploy', true);
+        resetDeployBtn();
+      }
+    });
+  }
+
+  function pollDeployStatus() {
+    clearInterval(deployPollInterval);
+    deployPollInterval = setInterval(async () => {
+      const res  = await fetch('/api/deploy/status');
+      const data = await res.json();
+
+      document.getElementById('deploy-log').textContent = data.log;
+
+      if (data.status === 'success') {
+        clearInterval(deployPollInterval);
+        showToast('🚀 Deploy completado exitosamente');
+        setDeployBtn('success', '✅', 'Deploy exitoso');
+        setTimeout(() => {
+          resetDeployBtn();
+          fetch('/api/deploy/reset', { method: 'POST' });
+          document.getElementById('deploy-log').classList.remove('deploy-log--visible');
+        }, 4000);
+      } else if (data.status === 'error') {
+        clearInterval(deployPollInterval);
+        showToast('❌ El deploy falló. Ver log para detalles.', true);
+        setDeployBtn('error', '❌', 'Deploy fallido');
+        setTimeout(() => {
+          resetDeployBtn();
+          fetch('/api/deploy/reset', { method: 'POST' });
+        }, 5000);
+      }
+    }, 1500);
+  }
+
+  function setDeployBtn(state, icon, label) {
+    const btn = document.getElementById('btn-deploy');
+    btn.className = `btn-deploy btn-deploy--${state}`;
+    btn.disabled  = false;
+    document.getElementById('deploy-icon').textContent  = icon;
+    document.getElementById('deploy-label').textContent = label;
+  }
+
+  function resetDeployBtn() {
+    const btn = document.getElementById('btn-deploy');
+    btn.className = 'btn-deploy';
+    btn.disabled  = false;
+    document.getElementById('deploy-icon').textContent  = '🚀';
+    document.getElementById('deploy-label').textContent = 'Deploy a Vercel';
+  }
+
+  // ── Toast notification ────────────────────────────
+  let toastTimer = null;
+  function showToast(msg, isError = false) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className   = `toast${isError ? ' toast--error' : ''} toast--visible`;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { t.classList.remove('toast--visible'); }, 3000);
+  }
+
+  // ── Escape HTML ───────────────────────────────────
+  function escHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+</script>
+</body>
+</html>

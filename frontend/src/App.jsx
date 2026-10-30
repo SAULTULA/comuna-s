@@ -1,14 +1,41 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import NewsFeed from './components/NewsFeed.jsx';
 import RadioCards from './components/RadioCards.jsx';
 import WeatherBar from './components/WeatherBar.jsx';
 import Footer from './components/Footer.jsx';
+import InstallButton from './components/InstallButton.jsx';
+import AdCarousel from './components/AdCarousel.jsx';
+import HeaderAdBanner from './components/HeaderAdBanner.jsx';
 
+/**
+ * Los anuncios se cargan en runtime desde /ads/ads.json
+ * Ese archivo es gestionado por el panel de administración local.
+ * Para publicar cambios: usar el botón "Deploy a Vercel" en el panel admin.
+ */
 export default function App() {
   const [activeStationId, setActiveStationId] = useState(null);
+  const [adsSidebar, setAdsSidebar] = useState([]);
+  const [adsHeader,  setAdsHeader]  = useState([]);
+
+  useEffect(() => {
+    fetch('/ads/ads.json')
+      .then((r) => r.json())
+      .then((data) => {
+        setAdsSidebar(data.sidebar || []);
+        setAdsHeader(data.header  || []);
+      })
+      .catch(() => {
+        // Si falla la carga, muestra "Espacio disponible" (arrays vacíos)
+        setAdsSidebar([]);
+        setAdsHeader([]);
+      });
+  }, []);
 
   return (
     <div className="app-shell">
+      {/* Barra publicitaria persistente — siempre visible, rota automáticamente */}
+      <HeaderAdBanner ads={adsHeader} />
+
       <header className="app-header">
         <div className="app-header__brand-wrapper">
           <img src="/ccomunasnoti.png" alt="Comuna-S" className="app-header__logo" />
@@ -19,6 +46,7 @@ export default function App() {
         </div>
         <div className="app-header__right">
           <WeatherBar />
+          <InstallButton />
         </div>
       </header>
 
@@ -27,7 +55,12 @@ export default function App() {
           <NewsFeed />
         </section>
         <aside className="app-content__sidebar">
-          <RadioCards activeStationId={activeStationId} onActiveStationChange={setActiveStationId} />
+          {/* Carrusel de publicidades — encima de las radios */}
+          <AdCarousel ads={adsSidebar} />
+          <RadioCards
+            activeStationId={activeStationId}
+            onActiveStationChange={setActiveStationId}
+          />
         </aside>
       </main>
 
@@ -35,3 +68,4 @@ export default function App() {
     </div>
   );
 }
+

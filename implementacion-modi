@@ -1,0 +1,45 @@
+Implementar PWA y Reproducción de Audio en Segundo Plano
+El objetivo de este plan es permitir la instalación de la aplicación en cualquier dispositivo y solucionar el problema de la detención del audio al bloquear el dispositivo móvil.
+
+Open Questions
+Ninguna por el momento.
+
+Proposed Changes
+PWA & Vite Config
+Para convertir la web en una PWA instalable, instalaremos y configuraremos el plugin oficial de Vite para PWA.
+
+[MODIFY] 
+package.json
+Agregar la dependencia vite-plugin-pwa a las devDependencies.
+[MODIFY] 
+vite.config.js
+Importar y añadir el plugin VitePWA a la configuración de Vite, definiendo el manifest.json con los datos de la app (nombre, colores, íconos).
+Botón de Instalación
+Crearemos un nuevo componente para manejar el evento de instalación nativo del navegador.
+
+[NEW] 
+InstallButton.jsx
+Un componente de React que escuche el evento beforeinstallprompt y muestre un botón "Instalar App".
+Al hacer clic, activará el prompt nativo de instalación.
+[NEW] 
+InstallButton.module.css
+Estilos para el botón de instalación, usando BEM y CSS Modules.
+[MODIFY] 
+App.jsx
+ (o el componente principal)
+Importar e insertar <InstallButton /> en un lugar visible (por ejemplo, en el Header o Footer).
+Reproducción en Segundo Plano (Media Session API)
+Para que el audio no se detenga al bloquear el celular, debemos indicar al sistema operativo móvil (Android/iOS) que estamos reproduciendo contenido multimedia.
+
+[MODIFY] 
+RadioCards.jsx
+Al reproducir una radio, utilizaremos navigator.mediaSession.metadata para pasarle al sistema operativo el título, artista y el logo de la radio.
+Implementaremos los manejadores navigator.mediaSession.setActionHandler para los eventos play, pause y stop desde los controles del teléfono o pantalla de bloqueo.
+Verification Plan
+Manual Verification
+Ingresar a la web en un navegador compatible (Chrome/Edge) y verificar que aparezca el botón "Instalar App".
+Clic en "Instalar App" y verificar que se instale correctamente en el sistema (como PWA).
+Reproducir una radio, bloquear el celular (o cambiar de pestaña) y verificar que el audio continúe sonando.
+Revisar los controles multimedia del sistema operativo en la pantalla de bloqueo y comprobar que el nombre e ícono de la radio aparezcan y los botones de pausa/play funcionen.
+
+quiero implementar en el card donde esta el contador un espacio para publicidad que se comporte como un carrousel con posicbilidad de agregar hasta 5 imagenes de publicidad y que en cada una se pueda abrir la web del auspiciante si es que tiene web y un banner publicitario slider entre y salga cuando entra muestre un auspicio y se salga y al volver a entrar aparezca la otra publi o si no hay que aparezca espacio disponible para publicidad que aparezca en el header tambien con capacidad de 5 publicidades y redireccion a web o whatsapp  segun corresponda 

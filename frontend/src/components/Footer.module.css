@@ -66,6 +66,19 @@
   text-decoration: underline;
 }
 
+.waLink {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  text-decoration: none;
+  margin-top: 0.5rem;
+  transition: color 0.2s ease;
+}
+
+.waLink:hover {
+  color: var(--accent-color);
+  text-decoration: underline;
+}
+
 .ksmLogo {
   height: 80px;
   object-fit: contain;

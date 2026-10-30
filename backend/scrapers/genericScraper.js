@@ -2,7 +2,16 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const Parser = require('rss-parser');
 
-const rssParser = new Parser({ timeout: 8000 });
+const rssParser = new Parser({
+  timeout: 8000,
+  customFields: {
+    item: [
+      // Blogger / media-RSS thumbnail
+      ['media:thumbnail', 'media:thumbnail', { keepArray: false }],
+      ['media:content',   'media:content',   { keepArray: false }],
+    ],
+  },
+});
 
 const HEADERS = {
   'User-Agent':
@@ -47,7 +56,17 @@ async function tryRss(source) {
 }
 
 function extractImageFromRssItem(item) {
+  // 1. Blogger / media-RSS: <media:thumbnail url="..."> (Atom feed)
+  const mediaThumbnail = item['media:thumbnail'];
+  if (mediaThumbnail) {
+    // Puede ser objeto { url } o string directo
+    const url = (typeof mediaThumbnail === 'object' ? mediaThumbnail.$ && mediaThumbnail.$.url : null)
+      || (typeof mediaThumbnail === 'string' ? mediaThumbnail : null);
+    if (url) return url;
+  }
+  // 2. Enclosure estándar (podcasts, algunos RSS)
   if (item.enclosure && item.enclosure.url) return item.enclosure.url;
+  // 3. <img> dentro del content:encoded o content HTML
   const html = item['content:encoded'] || item.content || '';
   const match = /<img[^>]+src="([^">]+)"/.exec(html);
   return match ? match[1] : null;
