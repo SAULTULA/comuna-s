@@ -17,6 +17,14 @@
 
   --accent-color: #0A84FF;
 
+  /* Sajaroff Cultural & Branding Accents */
+  --accent-maneco: #f59e0b;
+  --accent-jewish: #38bdf8;
+  --accent-german: #eab308;
+  --accent-comuna: #10b981;
+  --bg-badge-glass: rgba(255, 255, 255, 0.05);
+  --border-badge-glass: rgba(255, 255, 255, 0.12);
+
   /* Typography */
   --font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 

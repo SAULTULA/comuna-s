@@ -8,9 +8,9 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
-        name: 'Comuna-S Noticias y Radios',
-        short_name: 'Comuna-S',
-        description: 'Portal de noticias y radios locales del Departamento Villaguay',
+        name: 'Ingeniero Sajaroff | Noticias, Radios y Memoria',
+        short_name: 'Sajaroff',
+        description: 'Portal de noticias y radios locales de Ingeniero Sajaroff y Departamento Villaguay',
         theme_color: '#0a0a0a',
         background_color: '#0a0a0a',
         display: 'standalone',

@@ -6,6 +6,7 @@ import Footer from './components/Footer.jsx';
 import InstallButton from './components/InstallButton.jsx';
 import AdCarousel from './components/AdCarousel.jsx';
 import HeaderAdBanner from './components/HeaderAdBanner.jsx';
+import FloatingVisitorCounter from './components/FloatingVisitorCounter.jsx';
 
 /**
  * Los anuncios se cargan en runtime desde /ads/ads.json
@@ -38,13 +39,53 @@ export default function App() {
 
       <header className="app-header">
         <div className="app-header__brand-wrapper">
-          <img src="/ccomunasnoti.png" alt="Comuna-S" className="app-header__logo" />
+          <img 
+            src="/ccomunasnoti.png" 
+            alt="Ingeniero Sajaroff - Comuna de Entre Ríos" 
+            className="app-header__logo" 
+          />
           <div className="app-header__text">
-            <h1 className="app-header__title">Comuna-S</h1>
-            <p className="app-header__subtitle">Noticias y radios locales — Departamento Villaguay, Entre Ríos</p>
+            <div className="app-header__tag-row">
+              <span className="app-header__tag-badge">Comuna de Entre Ríos</span>
+              <span className="app-header__tag-location">Dpto. Villaguay</span>
+            </div>
+            <h1 className="app-header__title">Ingeniero Sajaroff</h1>
+            <p className="app-header__subtitle">
+              Portal Comunitario de Noticias, Radios y Memoria Viva
+            </p>
+
+            {/* Raíces históricas y multiculturales de Sajaroff */}
+            <div className="app-header__heritage-bar" aria-label="Raíces culturales e históricas de Ingeniero Sajaroff">
+              <span 
+                className="heritage-pill heritage-pill--maneco"
+                title="Homenaje a los pobladores afroentrerrianos y el histórico Cementerio de los Manecos"
+              >
+                <span className="heritage-pill__dot heritage-pill__dot--amber" aria-hidden="true" />
+                <span>Herencia Afro Maneca</span>
+              </span>
+
+              <span 
+                className="heritage-pill heritage-pill--jewish"
+                title="Pioneros de la Jewish Colonization Association y Colonia Clara"
+              >
+                <span className="heritage-pill__dot heritage-pill__dot--blue" aria-hidden="true" />
+                <span>Colonos Judíos</span>
+              </span>
+
+              <span 
+                className="heritage-pill heritage-pill--german"
+                title="Inmigrantes y familias alemanas del Volga"
+              >
+                <span className="heritage-pill__dot heritage-pill__dot--gold" aria-hidden="true" />
+                <span>Descendientes Alemanes</span>
+              </span>
+            </div>
           </div>
         </div>
+
         <div className="app-header__right">
+          {/* Contador de visitas flotante integrado en el header */}
+          <FloatingVisitorCounter />
           <WeatherBar />
           <InstallButton />
         </div>

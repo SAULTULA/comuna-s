@@ -19,7 +19,7 @@ export default function Footer() {
           </div>
         </div>
         <div className={styles.copyright}>
-          &copy; {currentYear} Comuna-S Noticias y Radios. Todos los derechos reservados.
+          &copy; {currentYear} Portal Ingeniero Sajaroff · Noticias, Radios y Memoria Comunitaria. Departamento Villaguay, Entre Ríos.
         </div>
       </div>
     </footer>

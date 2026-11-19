@@ -69,25 +69,9 @@ export default function NewsFeed() {
     <section>
       <h2 className="news-section-title">Noticias de los Principales Portales</h2>
       <div className="news-grid">
-      {items.map((item, idx) => {
-        const isThirdSlot = idx === 2;
-
-        return (
-          <React.Fragment key={`${item.link}-${idx}`}>
-            {isThirdSlot && (
-              <div className="widget-card">
-                <iframe 
-                  src="https://gente-de-medios.vercel.app/widget?id=comuna-s" 
-                  frameBorder="0" 
-                  scrolling="no" 
-                  title="Contador de visitas"
-                ></iframe>
-              </div>
-            )}
-            <NewsCard item={item} />
-          </React.Fragment>
-        );
-      })}
+        {items.map((item, idx) => (
+          <NewsCard key={`${item.link}-${idx}`} item={item} />
+        ))}
       </div>
     </section>
   );
