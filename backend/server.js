@@ -62,22 +62,126 @@ app.get(['/api/radios', '/radios'], (req, res) => {
   });
 });
 
-// Proxy para el contador y tracker real de visitas de Gente de Medios
+// Integración directa con Supabase para estadísticas y tracking real sin intermediarios
+const SUPABASE_URL = 'https://gocksnydkykbexlevsfe.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_UgWvNLcQHn3IlIo6AVPQqA_ALG7vUg4';
+
 app.get(['/api/track', '/track'], async (req, res) => {
   try {
     const siteId = req.query.site_id || 'comuna-s';
-    const upstreamUrl = `https://gente-de-medios.vercel.app/api/track?site_id=${encodeURIComponent(siteId)}`;
-    const response = await fetch(upstreamUrl, {
-      headers: {
-        'x-vercel-ip-country': req.headers['x-vercel-ip-country'] || '',
-        'x-vercel-ip-city': req.headers['x-vercel-ip-city'] || '',
+    const shouldTrack = req.query.track !== '0';
+
+    // 1. Si es una nueva visita (sesión no registrada), insertar los datos reales del usuario
+    if (shouldTrack) {
+      const country = req.headers['x-vercel-ip-country'] || 'AR';
+      const rawCity = req.headers['x-vercel-ip-city'] || '';
+      const city = rawCity ? decodeURIComponent(rawCity) : 'Desconocida';
+
+      await fetch(`${SUPABASE_URL}/rest/v1/site_visits`, {
+        method: 'POST',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal',
+        },
+        body: JSON.stringify({
+          country_code: country,
+          city: city,
+          site_id: siteId,
+        }),
+      });
+    }
+
+    // 2. Obtener estadísticas acumuladas desde Supabase
+    const now = new Date();
+    const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate()).toISOString();
+
+    const startOfWeek = new Date();
+    startOfWeek.setDate(now.getDate() - 7);
+    const startOfWeekStr = startOfWeek.toISOString();
+
+    const startOfMonth = new Date();
+    startOfMonth.setDate(now.getDate() - 30);
+    const startOfMonthStr = startOfMonth.toISOString();
+
+    const sbHeaders = {
+      'apikey': SUPABASE_ANON_KEY,
+      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+      'Prefer': 'count=exact',
+    };
+
+    // Conteo Total
+    const resTotal = await fetch(
+      `${SUPABASE_URL}/rest/v1/site_visits?site_id=eq.${siteId}&select=id`,
+      { method: 'HEAD', headers: sbHeaders }
+    );
+    const rangeTotal = resTotal.headers.get('content-range');
+    const countTotal = rangeTotal ? parseInt(rangeTotal.split('/')[1] || '0', 10) : 0;
+
+    // Conteo Hoy
+    const resToday = await fetch(
+      `${SUPABASE_URL}/rest/v1/site_visits?site_id=eq.${siteId}&created_at=gte.${startOfToday}&select=id`,
+      { method: 'HEAD', headers: sbHeaders }
+    );
+    const rangeToday = resToday.headers.get('content-range');
+    const countToday = rangeToday ? parseInt(rangeToday.split('/')[1] || '0', 10) : 0;
+
+    // Conteo Semana
+    const resWeek = await fetch(
+      `${SUPABASE_URL}/rest/v1/site_visits?site_id=eq.${siteId}&created_at=gte.${startOfWeekStr}&select=id`,
+      { method: 'HEAD', headers: sbHeaders }
+    );
+    const rangeWeek = resWeek.headers.get('content-range');
+    const countWeek = rangeWeek ? parseInt(rangeWeek.split('/')[1] || '0', 10) : 0;
+
+    // Conteo Mes
+    const resMonth = await fetch(
+      `${SUPABASE_URL}/rest/v1/site_visits?site_id=eq.${siteId}&created_at=gte.${startOfMonthStr}&select=id`,
+      { method: 'HEAD', headers: sbHeaders }
+    );
+    const rangeMonth = resMonth.headers.get('content-range');
+    const countMonth = rangeMonth ? parseInt(rangeMonth.split('/')[1] || '0', 10) : 0;
+
+    // Obtener desglose de ubicaciones de los últimos 30 días
+    const resRecent = await fetch(
+      `${SUPABASE_URL}/rest/v1/site_visits?site_id=eq.${siteId}&created_at=gte.${startOfMonthStr}&select=country_code,city&limit=500`,
+      { headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}` } }
+    );
+    const recentVisits = await resRecent.json();
+
+    const locationStats = {};
+    if (Array.isArray(recentVisits)) {
+      recentVisits.forEach((v) => {
+        if (v.country_code) {
+          const code = v.country_code.toLowerCase();
+          const city = (v.city || 'Desconocida').trim();
+          const key = `${code}|${city}`;
+          if (!locationStats[key]) {
+            locationStats[key] = { code, city, count: 0 };
+          }
+          locationStats[key].count += 1;
+        }
+      });
+    }
+
+    const topLocations = Object.values(locationStats)
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 15);
+
+    res.json({
+      success: true,
+      stats: {
+        today: countToday,
+        week: countWeek,
+        month: countMonth,
+        total: countTotal,
+        locations: topLocations,
       },
     });
-    const data = await response.json();
-    res.json(data);
   } catch (err) {
-    console.error('Error al conectar con Gente de Medios /api/track:', err);
-    res.status(500).json({ success: false, error: 'Error obteniendo estadísticas' });
+    console.error('Error en /api/track:', err);
+    res.status(500).json({ success: false, error: 'Error procesando estadísticas de visitas' });
   }
 });
 

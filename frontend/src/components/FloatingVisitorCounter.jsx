@@ -4,11 +4,11 @@ import styles from './FloatingVisitorCounter.module.css';
 /**
  * FloatingVisitorCounter Component
  * 
- * Consume datos 100% REALES de la base de datos Supabase de Gente de Medios:
- * https://gente-de-medios.vercel.app/api/track?site_id=comuna-s
- * 
- * Cada visita es registrada en la tabla site_visits con su geolocalización (país y ciudad).
- * El widget se muestra siempre visible (sin necesidad de hacer clic para desplegarlo).
+ * Consume datos 100% REALES de la base de datos Supabase:
+ * - Registra únicamente 1 visita real por sesión de navegación (evita duplicar al recargar).
+ * - Registra la ubicación geográfica real del usuario (Argentina, etc.), no del servidor.
+ * - Muestra permanentemente visible el contador con métricas oficiales:
+ *   Hoy, Semana, Mes, Total y detalle de ciudades visitantes.
  */
 export default function FloatingVisitorCounter({ siteId = 'comuna-s' }) {
   const [stats, setStats] = useState({
@@ -25,32 +25,36 @@ export default function FloatingVisitorCounter({ siteId = 'comuna-s' }) {
   useEffect(() => {
     let isMounted = true;
 
-    async function fetchRealStats() {
+    async function loadStats() {
       try {
         setLoading(true);
-        let res;
-        try {
-          res = await fetch(`https://gente-de-medios.vercel.app/api/track?site_id=${siteId}`);
-        } catch {
-          // Fallback a través del proxy del backend
-          const apiUrl = import.meta.env.VITE_API_URL || '';
-          res = await fetch(`${apiUrl}/api/track?site_id=${siteId}`);
-        }
+        const SESSION_TRACK_KEY = `comunas_tracked_${siteId}`;
+        const hasTracked = Boolean(sessionStorage.getItem(SESSION_TRACK_KEY));
 
-        if (res && res.ok) {
+        // Solo enviamos track=1 la primera vez que el usuario ingresa en esta sesión.
+        // Si recarga la página, envía track=0 para consultar estadísticas sin inflar visitas.
+        const shouldTrack = !hasTracked;
+        const apiUrl = import.meta.env.VITE_API_URL || '';
+        const endpoint = `${apiUrl}/api/track?site_id=${encodeURIComponent(siteId)}&track=${shouldTrack ? 1 : 0}`;
+
+        const res = await fetch(endpoint);
+        if (res.ok) {
           const data = await res.json();
           if (data.success && data.stats && isMounted) {
             setStats(data.stats);
+            if (shouldTrack) {
+              sessionStorage.setItem(SESSION_TRACK_KEY, '1');
+            }
           }
         }
       } catch (err) {
-        console.error('Error obteniendo estadísticas reales de Supabase:', err);
+        console.error('Error cargando estadísticas de visitas:', err);
       } finally {
         if (isMounted) setLoading(false);
       }
     }
 
-    fetchRealStats();
+    loadStats();
     return () => {
       isMounted = false;
     };
