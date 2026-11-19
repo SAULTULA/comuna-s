@@ -4,12 +4,11 @@ import styles from './FloatingVisitorCounter.module.css';
 /**
  * FloatingVisitorCounter Component
  * 
- * Consume directamente la API real de analíticas y geolocalización de Gente de Medios:
+ * Consume datos 100% REALES de la base de datos Supabase de Gente de Medios:
  * https://gente-de-medios.vercel.app/api/track?site_id=comuna-s
  * 
- * Registra visitas reales en la base de datos Supabase y muestra métricas
- * oficiales (hoy, semana, mes, total y países/ciudades) en un formato flotante
- * moderno, sin iframes y sin elementos visuales invasivos.
+ * Cada visita es registrada en la tabla site_visits con su geolocalización (país y ciudad).
+ * El widget se muestra siempre visible (sin necesidad de hacer clic para desplegarlo).
  */
 export default function FloatingVisitorCounter({ siteId = 'comuna-s' }) {
   const [stats, setStats] = useState({
@@ -20,23 +19,20 @@ export default function FloatingVisitorCounter({ siteId = 'comuna-s' }) {
     locations: [],
   });
   const [loading, setLoading] = useState(true);
-  const [isExpanded, setIsExpanded] = useState(false);
-  const dropdownRef = useRef(null);
+  const [activePopover, setActivePopover] = useState(null);
+  const cardRef = useRef(null);
 
   useEffect(() => {
     let isMounted = true;
 
-    async function trackAndFetchStats() {
+    async function fetchRealStats() {
       try {
         setLoading(true);
-        // Intenta primero llamada directa a la API en producción
         let res;
         try {
-          res = await fetch(`https://gente-de-medios.vercel.app/api/track?site_id=${siteId}`, {
-            method: 'GET',
-          });
+          res = await fetch(`https://gente-de-medios.vercel.app/api/track?site_id=${siteId}`);
         } catch {
-          // Si falla o hay bloqueo local, utiliza el proxy del backend propio
+          // Fallback a través del proxy del backend
           const apiUrl = import.meta.env.VITE_API_URL || '';
           res = await fetch(`${apiUrl}/api/track?site_id=${siteId}`);
         }
@@ -48,32 +44,28 @@ export default function FloatingVisitorCounter({ siteId = 'comuna-s' }) {
           }
         }
       } catch (err) {
-        console.error('Error al obtener analíticas de visitas reales:', err);
+        console.error('Error obteniendo estadísticas reales de Supabase:', err);
       } finally {
         if (isMounted) setLoading(false);
       }
     }
 
-    trackAndFetchStats();
+    fetchRealStats();
     return () => {
       isMounted = false;
     };
   }, [siteId]);
 
-  // Cierra el panel de detalles si se hace clic fuera del componente
+  // Cierra el popover de ciudades al hacer clic afuera
   useEffect(() => {
-    function handleClickOutside(event) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setIsExpanded(false);
+    function handleClickOutside(e) {
+      if (cardRef.current && !cardRef.current.contains(e.target)) {
+        setActivePopover(null);
       }
     }
-    if (isExpanded) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isExpanded]);
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   // Agrupa ubicaciones por código de país
   const groupedLocations = (stats.locations || []).reduce((acc, loc) => {
@@ -83,138 +75,112 @@ export default function FloatingVisitorCounter({ siteId = 'comuna-s' }) {
     return acc;
   }, {});
 
-  const countryCodes = Object.keys(groupedLocations);
+  const countries = Object.keys(groupedLocations);
 
   return (
-    <div className={styles.visitorCounter} ref={dropdownRef}>
-      {/* Píldora flotante compacta en el header */}
-      <button
-        type="button"
-        className={`${styles.visitorCounter__pill} ${isExpanded ? styles['visitorCounter__pill--active'] : ''}`}
-        onClick={() => setIsExpanded(!isExpanded)}
-        title="Clic para ver detalle de visitas reales"
-        aria-expanded={isExpanded}
-      >
-        <div className={styles.visitorCounter__liveIndicator}>
-          <span className={styles.visitorCounter__pulseDot} aria-hidden="true" />
-          <span className={styles.visitorCounter__liveText}>En vivo</span>
+    <div className={styles.visitorCard} ref={cardRef} aria-label="Estadísticas de visitas">
+      {/* Cabecera del contador */}
+      <div className={styles.visitorCard__header}>
+        <div className={styles.visitorCard__live}>
+          <span className={styles.visitorCard__pulseDot} aria-hidden="true" />
+          <span className={styles.visitorCard__liveText}>En vivo</span>
         </div>
+        <span className={styles.visitorCard__title}>Visitas Reales</span>
+      </div>
 
-        <span className={styles.visitorCounter__divider} aria-hidden="true" />
-
-        <div className={styles.visitorCounter__metric}>
-          <svg 
-            className={styles.visitorCounter__icon}
-            width="14" 
-            height="14" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
-            strokeWidth="2" 
-            strokeLinecap="round" 
-            strokeLinejoin="round"
-            aria-hidden="true"
-          >
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-            <circle cx="12" cy="12" r="3" />
-          </svg>
-          <span className={styles.visitorCounter__metricLabel}>Visitas:</span>
-          <span className={styles.visitorCounter__metricValue}>
-            {loading ? '...' : stats.total.toLocaleString('es-AR')}
+      {/* Grid de 4 métricas oficiales */}
+      <div className={styles.visitorCard__stats}>
+        <div className={styles.visitorCard__statItem}>
+          <span className={styles.visitorCard__statLabel}>Hoy</span>
+          <span className={styles.visitorCard__statValue}>
+            {loading ? '...' : stats.today}
           </span>
         </div>
 
-        {!loading && stats.today > 0 && (
-          <span className={styles.visitorCounter__todayBadge}>
-            +{stats.today} hoy
+        <div className={styles.visitorCard__statItem}>
+          <span className={styles.visitorCard__statLabel}>Semana</span>
+          <span className={styles.visitorCard__statValue}>
+            {loading ? '...' : stats.week}
           </span>
-        )}
+        </div>
 
-        {/* Banderitas resumen de los países principales */}
-        {countryCodes.length > 0 && (
-          <div className={styles.visitorCounter__flagPreview}>
-            {countryCodes.slice(0, 3).map((code) => (
-              <img
-                key={code}
-                src={`https://flagcdn.com/20x15/${code}.png`}
-                alt={code.toUpperCase()}
-                className={styles.visitorCounter__flagThumb}
-                width="16"
-                height="12"
-              />
-            ))}
-          </div>
-        )}
+        <div className={styles.visitorCard__statItem}>
+          <span className={styles.visitorCard__statLabel}>Mes</span>
+          <span className={styles.visitorCard__statValue}>
+            {loading ? '...' : stats.month}
+          </span>
+        </div>
 
-        <span className={styles.visitorCounter__chevron} aria-hidden="true">
-          {isExpanded ? '▲' : '▼'}
-        </span>
-      </button>
+        <div className={styles.visitorCard__statItem}>
+          <span className={styles.visitorCard__statLabel}>Total</span>
+          <span className={styles.visitorCard__statValueTotal}>
+            {loading ? '...' : stats.total}
+          </span>
+        </div>
+      </div>
 
-      {/* Menú desplegable flotante con las métricas detalladas de Supabase */}
-      {isExpanded && (
-        <div className={styles.visitorCounter__dropdown} role="dialog" aria-label="Estadísticas de visitas">
-          <div className={styles.visitorCounter__dropdownHeader}>
-            <span className={styles.visitorCounter__dropdownTitle}>Estadísticas Oficiales</span>
-            <span className={styles.visitorCounter__siteBadge}>Comuna-S</span>
-          </div>
+      {/* Banderas por país con sus ciudades reales */}
+      {countries.length > 0 && (
+        <div className={styles.visitorCard__flagsSection}>
+          <span className={styles.visitorCard__flagsTitle}>Países visitantes:</span>
+          <div className={styles.visitorCard__flags}>
+            {countries.map((code) => {
+              const cities = groupedLocations[code];
+              const totalForCountry = cities.reduce((sum, item) => sum + item.count, 0);
+              const isOpen = activePopover === code;
 
-          <div className={styles.visitorCounter__grid}>
-            <div className={styles.visitorCounter__gridCard}>
-              <span className={styles.visitorCounter__gridLabel}>Hoy</span>
-              <span className={styles.visitorCounter__gridNumber}>{stats.today}</span>
-            </div>
-            <div className={styles.visitorCounter__gridCard}>
-              <span className={styles.visitorCounter__gridLabel}>Semana</span>
-              <span className={styles.visitorCounter__gridNumber}>{stats.week}</span>
-            </div>
-            <div className={styles.visitorCounter__gridCard}>
-              <span className={styles.visitorCounter__gridLabel}>Mes</span>
-              <span className={styles.visitorCounter__gridNumber}>{stats.month}</span>
-            </div>
-            <div className={styles.visitorCounter__gridCard}>
-              <span className={styles.visitorCounter__gridLabel}>Total</span>
-              <span className={styles.visitorCounter__gridNumberHigh}>{stats.total}</span>
-            </div>
-          </div>
+              return (
+                <div key={code} className={styles.visitorCard__flagItem}>
+                  <img
+                    src={`https://flagcdn.com/24x18/${code}.png`}
+                    alt={code.toUpperCase()}
+                    width="20"
+                    height="15"
+                    className={styles.visitorCard__flagImg}
+                  />
+                  <span className={styles.visitorCard__flagCount}>{totalForCountry}</span>
+                  <button
+                    type="button"
+                    className={`${styles.visitorCard__infoBtn} ${isOpen ? styles['visitorCard__infoBtn--active'] : ''}`}
+                    onClick={() => setActivePopover(isOpen ? null : code)}
+                    title={`Ver ciudades de ${code.toUpperCase()}`}
+                    aria-label={`Ver ciudades de ${code.toUpperCase()}`}
+                  >
+                    ⓘ
+                  </button>
 
-          {countryCodes.length > 0 && (
-            <div className={styles.visitorCounter__locationsSection}>
-              <span className={styles.visitorCounter__locationsTitle}>Visitantes por Ubicación</span>
-              <div className={styles.visitorCounter__locationsList}>
-                {countryCodes.map((code) => {
-                  const cities = groupedLocations[code];
-                  const totalCountry = cities.reduce((sum, item) => sum + item.count, 0);
-
-                  return (
-                    <div key={code} className={styles.visitorCounter__locationRow}>
-                      <div className={styles.visitorCounter__countryInfo}>
-                        <img
-                          src={`https://flagcdn.com/24x18/${code}.png`}
-                          alt={code.toUpperCase()}
-                          className={styles.visitorCounter__countryFlag}
-                          width="20"
-                          height="15"
-                        />
-                        <span className={styles.visitorCounter__countryCode}>{code.toUpperCase()}</span>
-                        <div className={styles.visitorCounter__citiesList}>
-                          {cities
-                            .sort((a, b) => b.count - a.count)
-                            .slice(0, 3)
-                            .map((c) => (
-                              <span key={c.city} className={styles.visitorCounter__cityPill}>
-                                {c.city}: {c.count}
-                              </span>
-                            ))}
-                        </div>
+                  {/* Popover flotante con las ciudades de ese país */}
+                  {isOpen && (
+                    <div className={styles.visitorCard__popover}>
+                      <div className={styles.visitorCard__popoverHeader}>
+                        <span className={styles.visitorCard__popoverTitle}>
+                          {code.toUpperCase()} — Ciudades
+                        </span>
+                        <button
+                          type="button"
+                          className={styles.visitorCard__popoverClose}
+                          onClick={() => setActivePopover(null)}
+                          aria-label="Cerrar"
+                        >
+                          ×
+                        </button>
                       </div>
-                      <span className={styles.visitorCounter__countryTotal}>{totalCountry}</span>
+                      <div className={styles.visitorCard__popoverList}>
+                        {cities
+                          .sort((a, b) => b.count - a.count)
+                          .map(({ city, count }) => (
+                            <div key={city} className={styles.visitorCard__popoverRow}>
+                              <span className={styles.visitorCard__popoverCity}>{city}</span>
+                              <span className={styles.visitorCard__popoverCount}>{count}</span>
+                            </div>
+                          ))}
+                      </div>
                     </div>
-                  );
-                })}
-              </div>
-            </div>
-          )}
+                  )}
+                </div>
+              );
+            })}
+          </div>
         </div>
       )}
     </div>
