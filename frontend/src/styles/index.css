@@ -79,42 +79,13 @@ a {
 .app-header__text {
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
-}
-
-.app-header__tag-row {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 0.15rem;
-  flex-wrap: wrap;
-}
-
-.app-header__tag-badge {
-  display: inline-flex;
-  align-items: center;
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #38bdf8;
-  background: rgba(56, 189, 248, 0.12);
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  padding: 0.2rem 0.55rem;
-  border-radius: 9999px;
-}
-
-.app-header__tag-location {
-  font-size: 0.78rem;
-  color: var(--text-tertiary);
-  font-weight: 500;
-  letter-spacing: 0.04em;
+  gap: 0.35rem;
 }
 
 .app-header__title {
-  font-size: clamp(2.1rem, 4.5vw, 3.2rem);
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
   font-weight: 700;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.03em;
   color: #ffffff;
   margin: 0;
   line-height: 1.05;
@@ -123,64 +94,11 @@ a {
 
 .app-header__subtitle {
   margin: 0;
-  color: rgba(255, 255, 255, 0.78);
-  font-size: clamp(0.92rem, 1.6vw, 1.15rem);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: clamp(0.95rem, 1.8vw, 1.22rem);
+  font-weight: 400;
   line-height: 1.4;
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
-}
-
-/* ── Heritage Pills (Tres Culturas) ─────── */
-.app-header__heritage-bar {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 0.35rem;
-  flex-wrap: wrap;
-}
-
-.heritage-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: rgba(255, 255, 255, 0.88);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 0.25rem 0.65rem;
-  border-radius: 9999px;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  transition: all 0.2s ease;
-  user-select: none;
-}
-
-.heritage-pill:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.25);
-  transform: translateY(-1px);
-}
-
-.heritage-pill__dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.heritage-pill__dot--amber {
-  background-color: #f59e0b;
-  box-shadow: 0 0 6px rgba(245, 158, 11, 0.6);
-}
-
-.heritage-pill__dot--blue {
-  background-color: #38bdf8;
-  box-shadow: 0 0 6px rgba(56, 189, 248, 0.6);
-}
-
-.heritage-pill__dot--gold {
-  background-color: #eab308;
-  box-shadow: 0 0 6px rgba(234, 179, 8, 0.6);
 }
 
 .app-header__right {
@@ -398,10 +316,6 @@ a {
     width: 100%;
     gap: 0.75rem;
   }
-
-  .app-header__heritage-bar {
-    gap: 0.4rem;
-  }
 }
 
 @media (max-width: 540px) {
@@ -413,10 +327,5 @@ a {
 
   .app-header__logo {
     height: 60px;
-  }
-
-  .heritage-pill {
-    font-size: 0.7rem;
-    padding: 0.2rem 0.5rem;
   }
 }
