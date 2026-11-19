@@ -62,6 +62,25 @@ app.get(['/api/radios', '/radios'], (req, res) => {
   });
 });
 
+// Proxy para el contador y tracker real de visitas de Gente de Medios
+app.get(['/api/track', '/track'], async (req, res) => {
+  try {
+    const siteId = req.query.site_id || 'comuna-s';
+    const upstreamUrl = `https://gente-de-medios.vercel.app/api/track?site_id=${encodeURIComponent(siteId)}`;
+    const response = await fetch(upstreamUrl, {
+      headers: {
+        'x-vercel-ip-country': req.headers['x-vercel-ip-country'] || '',
+        'x-vercel-ip-city': req.headers['x-vercel-ip-city'] || '',
+      },
+    });
+    const data = await response.json();
+    res.json(data);
+  } catch (err) {
+    console.error('Error al conectar con Gente de Medios /api/track:', err);
+    res.status(500).json({ success: false, error: 'Error obteniendo estadísticas' });
+  }
+});
+
 app.get(['/api/health', '/health'], (req, res) => res.json({ ok: true }));
 
 if (process.env.NODE_ENV !== 'production') {
